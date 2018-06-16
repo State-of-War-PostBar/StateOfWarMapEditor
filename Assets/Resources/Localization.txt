@@ -1,0 +1,6 @@
+# Localizaiton (Language translation) file
+# this is single line comments.
+# Please keep the encoding of this file UTF-8, and line break as \n instead of \r\n.
+
+LocalizationTest=本地化$n$测试
+Close=关闭
