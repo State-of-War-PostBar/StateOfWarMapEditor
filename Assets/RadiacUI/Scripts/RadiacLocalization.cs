@@ -16,7 +16,7 @@ namespace RadiacUI
         
         static Regex matcherEq = new Regex(@"\$e\$", RegexOptions.Compiled);
         static Regex matcherLb = new Regex(@"\$n\$", RegexOptions.Compiled);
-        static Regex matcherCs = new Regex(@"\$#\$", RegexOptions.Compiled);
+        static Regex matcherCs = new Regex(@"\$h\$", RegexOptions.Compiled);
         
         public static void LoadLocalizationFile()
         {
@@ -32,25 +32,29 @@ namespace RadiacUI
             // equals sign is seperator. Spaces around equals sign are considered as part of strings.
             // use $e$ for equal sign of text.
             // use $n$ for line break.
-            // use $#$ for charactor #.
+            // use $h$ for charactor #.
             
             string[] lines = file.text.Replace("\r", "").Split('\n');
             int curLine = 0;
             foreach(var line in lines)
             {
                 curLine++;
-                int index = line.IndexOf('=');
+                int index = line.IndexOf('#');
                 if(index == -1)
+                    index = line.Length;
+                var s = line.Substring(0, index);
+                if(s == null || s == "" || s.Length == 0)
                 {
-                    var lineWithoutSpace = line.Replace(" ", "");
-                    if(lineWithoutSpace.Length != 0 && lineWithoutSpace[0] != '#')
+                    var lineWithoutSpace = s.Replace(" ", "").Replace("\t", "");
+                    if(lineWithoutSpace.Length != 0)
                     {
                         throw new InvalidOperationException("Cannot find '=' at line " + curLine);
                     }
+                    continue;
                 }
                 else
                 {
-                    var parts = line.Split('=');
+                    var parts = s.Split('=');
                     if(parts.Length > 2)
                     {
                             throw new InvalidOperationException("Too many equals signs at line " + curLine);

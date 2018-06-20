@@ -17,10 +17,10 @@ namespace RadiacUI
     {
         internal static readonly HashSet<RadiacPanel> all = new HashSet<RadiacPanel>();
         
-        public string[] signalMouseScroll;
-        public string[] signalMouseEnter;
-        public string[] signalMouseLeave;
-        public string[] signalMouseMove;
+        public string emitMouseScroll;
+        public string emitMouseEnter;
+        public string emitMouseLeave;
+        public string emitMouseMove;
         
         Vector2 lastCursorPos;
         
@@ -35,6 +35,10 @@ namespace RadiacUI
         
         protected override void Start()
         {
+            emitMouseScroll = ParseRequest(emitMouseScroll);
+            emitMouseEnter = ParseRequest(emitMouseEnter);
+            emitMouseLeave = ParseRequest(emitMouseLeave);
+            emitMouseMove = ParseRequest(emitMouseMove);
             base.Start();
             
             lastCursorPos = VirtualCursor.position;
@@ -60,24 +64,24 @@ namespace RadiacUI
             
             if(cursorHovering && VirtualCursor.scrolling)
             {
-                SignalManager.EmitSignal(signalMouseScroll);
+                SignalManager.EmitSignal(emitMouseScroll);
             }
             
             if(cursorHovering && !trigLast)
             {
-                SignalManager.EmitSignal(signalMouseEnter);
+                SignalManager.EmitSignal(emitMouseEnter);
             }
             
             if(!cursorHovering && trigLast)
             {
-                SignalManager.EmitSignal(signalMouseLeave);
+                SignalManager.EmitSignal(emitMouseLeave);
             }
             
             if(cursorHovering || trigLast)
             {
                 if(VirtualCursor.position != lastCursorPos)
                 {
-                    SignalManager.EmitSignal(signalMouseMove);
+                    SignalManager.EmitSignal(emitMouseMove);
                 }
             }
             

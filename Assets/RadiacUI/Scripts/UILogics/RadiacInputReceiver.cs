@@ -13,8 +13,8 @@ namespace RadiacUI
     {
         public bool focused { get { return RadiacInputController.focusing == this; } }
         
-        [SerializeField] string focusSignal;
-        [SerializeField] string cancelSignal;
+        public string focusSignal;
+        public string cancelSignal;
         
         public virtual void ReceiveOperator(InputOperator op)
         {
@@ -31,6 +31,8 @@ namespace RadiacUI
         
         protected override void Start()
         {
+            focusSignal = ParseRequest(focusSignal);
+            cancelSignal = ParseRequest(cancelSignal);
             base.Start();
             
             AddCallback(new Signal(focusSignal), () =>

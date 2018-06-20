@@ -11,21 +11,23 @@ namespace RadiacUI
     [RequireComponent(typeof(RectTransform))]
     public class RadiacButton : RadiacPanel
     {
-        public string[] signalMouseClick;
-        public string[] signalMouseRelease;
+        public string emitMouseClick;
+        public string emitMouseRelease;
         
         protected override void Update()
         {
+            emitMouseClick = ParseRequest(emitMouseClick);
+            emitMouseRelease = ParseRequest(emitMouseRelease);
             base.Update();
             
             if(cursorHovering && Input.GetMouseButtonDown(0))
             {
-                SignalManager.EmitSignal(signalMouseClick);
+                SignalManager.EmitSignal(emitMouseClick);
             }
             
             if(cursorHovering && Input.GetMouseButtonUp(0))
             {
-                SignalManager.EmitSignal(signalMouseRelease);
+                SignalManager.EmitSignal(emitMouseRelease);
             }
             
         }

@@ -7,13 +7,14 @@ namespace RadiacUI
         // In a Time.deltaTime, which Update() takes.
         public static Vector2 deltaPosition { get; private set; }
         
+        static Vector2 curPosition;
+        
         // In pixels.
         public static Vector2 position
         {
             get
             {
-                return new Vector2(Input.mousePosition.x, Input.mousePosition.y)
-                    .Clamp(Vector2.zero, new Vector2(Screen.width - 1, Screen.height - 1));
+                return curPosition;
             }
         }
         
@@ -52,7 +53,15 @@ namespace RadiacUI
         
         public static void Init()
         {
-            // do nothing yet...
+            if(Component.FindObjectOfType<RadiacCursor>() == null) return;
+            
+            curPosition = Input.mousePosition;
+            
+            RadiacEnvironment.RadiacUpdates += () =>
+            {
+                curPosition += RadiacCursor.inst.speedMult * new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                curPosition = curPosition.Clamp(Vector2.zero, new Vector2(Screen.width - 1, Screen.height - 1));
+            };
         }
     }
     

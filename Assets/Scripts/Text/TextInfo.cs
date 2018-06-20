@@ -29,7 +29,7 @@ namespace MapEditor
             if(v == textUpdateDelay)
             {
                 v = 0;
-                text = RadiacUI.LocalizationSupport.GetLocalizedString(Global.inst.textAgent[requirementName]);
+                text = Global.inst.textAgent[requirementName];
             }
         }
     }

@@ -323,9 +323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -340,12 +341,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 0
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
-  activeSignal: WidgetName.Enter
-  deactiveSignal: WidgetName.Leave
+  activeSignal: ..Enter
+  deactiveSignal: ..Leave
 --- !u!114 &114227922545996982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,9 +359,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -386,9 +389,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -443,9 +447,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -474,9 +479,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -546,9 +552,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -596,18 +603,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126b8cd95ff34ab4aa1fc356babcd2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
-  signalMouseScroll: []
-  signalMouseEnter:
-  - WidgetName.Enter
-  signalMouseLeave:
-  - WidgetName.Leave
-  signalMouseMove: []
+  emitMouseScroll: 
+  emitMouseEnter: .Enter
+  emitMouseLeave: .Leave
+  emitMouseMove: 
   useBaseRect: 1
 --- !u!114 &114552619425059122
 MonoBehaviour:
@@ -660,9 +666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39181c852606f804cbffd4db21818aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 
@@ -744,9 +751,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623fcb8e6b5276640952adcbf9924519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementName: 
   _selfActive: 1
-  signalActive: []
-  signalDeactive: []
+  emitActive: 
+  emitDeactive: 
   switchSignal: 
   activeSignal: 
   deactiveSignal: 

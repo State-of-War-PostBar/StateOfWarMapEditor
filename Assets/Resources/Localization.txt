@@ -4,3 +4,30 @@
 
 LocalizationTest=本地化$n$测试
 Close=关闭
+
+TileModification=地块属性修改
+GlobalSetting=全局设置
+Placement=建筑单位摆放
+
+# ===== 全局设置 =====
+
+Player=玩家
+Enemy=敌方
+
+DiskToggle=飞碟可重生
+
+TurretDefence=小炮塔
+TurretAntiair=防空炮塔
+TurretIon=离子炮塔
+TurretLed=莱德风暴
+TurretCluster=集束炮塔
+
+Money=玩家金钱
+Research=玩家研究指数
+DiskPower=飞碟攻击力
+Airforce=空军
+Bomber=轰炸机
+Meteor=陨石
+Carrier=运兵船
+Tripler=连环轰炸
+Fighter=战斗机

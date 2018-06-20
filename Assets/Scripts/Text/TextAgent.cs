@@ -44,8 +44,7 @@ namespace MapEditor
         {
             if(!map.ContainsKey(s))
             {
-                Debug.LogWarning("string " + s + " could not be found in text agnet.");
-                return s;
+                return "NotFound:" + s;
             }
             
             return map[s];
