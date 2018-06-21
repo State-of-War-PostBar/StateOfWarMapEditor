@@ -23,6 +23,7 @@ namespace MapEditor
         public TextAgent textAgent = new TextAgent();
         public Edt edt;
         public Map map;
+        public Texture2D srf;
     }
     
     

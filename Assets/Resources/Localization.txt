@@ -9,7 +9,17 @@ TileModification=地块属性修改
 GlobalSetting=全局设置
 Placement=建筑单位摆放
 
+# ===== 指定文件 =====
+
+EdtReadHint=Edt文件...
+EdtNotFound=路径不正确
+MapReadHint=Map文件...
+MapNotFound=路径不正确
+SrfReadHint=Srf文件...
+SrfNotFound=路径不正确
+
 # ===== 全局设置 =====
+
 
 Player=玩家
 Enemy=敌方

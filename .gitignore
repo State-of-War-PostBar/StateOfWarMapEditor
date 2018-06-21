@@ -37,3 +37,7 @@ sysinfo.txt
 
 # VSCode cache and configurations
 .vscode/
+
+# Project file.
+*.unity
+!main.unity
