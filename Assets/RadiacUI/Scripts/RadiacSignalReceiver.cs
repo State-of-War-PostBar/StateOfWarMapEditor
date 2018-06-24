@@ -7,13 +7,15 @@ namespace RadiacUI
 {
     public abstract class SignalReceiver : MonoBehaviour
     {
-        readonly Dictionary<Signal, Action> actionList = new Dictionary<Signal, Action>();
+        readonly List<Signal> signalList = new List<Signal>();
+        readonly List<Action> actionList = new List<Action>();
         
         protected void AddCallback(Signal x, Action action)
         {
             if(x.value == "") return; // do nothing for empty string.
             
-            actionList.Add(x, action);
+            signalList.Add(x);
+            actionList.Add(action);
             SignalManager.AddSignalCallback(x, action);
         }
         
@@ -22,9 +24,9 @@ namespace RadiacUI
         // to make sure there won't be an unconscious override.
         protected virtual void OnDestroy()
         {
-            foreach(var i in actionList)
+            for(int i=0; i<signalList.Count; i++)
             {
-                SignalManager.RemoveSignalCallback(i.Key, i.Value);
+                SignalManager.RemoveSignalCallback(signalList[i], actionList[i]);
             }
         }
     }

@@ -29,15 +29,10 @@ namespace MapEditor
         
         const int preserve = 300;
         
-        int unitLayer;
-        int buildingLayer;
-        
         void Start()
         {
             Preserve(preserve);
             PrepareResources();
-            unitLayer = SortingLayer.GetLayerValueFromID(SortingLayer.GetLayerValueFromName("Units"));
-            buildingLayer = SortingLayer.GetLayerValueFromID(SortingLayer.GetLayerValueFromName("Buildings"));
         }
         
         void Update()

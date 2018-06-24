@@ -4,8 +4,12 @@ namespace RadiacUI
 {
     public static class VirtualCursor
     {
-        // In a Time.deltaTime, which Update() takes.
-        public static Vector2 deltaPosition { get; private set; }
+        public static bool lockCursor = false;
+        
+        public static Vector2 deltaPosition
+        {
+            get { return RadiacCursor.inst.speedMult * new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); }
+        }
         
         static Vector2 curPosition;
         
@@ -59,10 +63,12 @@ namespace RadiacUI
             
             RadiacEnvironment.RadiacUpdates += () =>
             {
-                curPosition += RadiacCursor.inst.speedMult * new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-                curPosition = curPosition.Clamp(Vector2.zero, new Vector2(Screen.width - 1, Screen.height - 1));
+                if(!lockCursor)
+                {
+                    curPosition += deltaPosition;
+                    curPosition = curPosition.Clamp(Vector2.zero, new Vector2(Screen.width - 1, Screen.height - 1));
+                }
             };
         }
     }
-    
 }

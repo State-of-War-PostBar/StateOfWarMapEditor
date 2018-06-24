@@ -10,7 +10,7 @@ HAntiair=1,1
 
 LArti=0,1
 MArti=0,2
-HArti=1,1
+HArti=1,2
 
 LArmor=0,1
 MArmor=0,1
@@ -42,7 +42,7 @@ Fighter=0,0
 Tripler=0,0
 Meteor=0,0
 
-Disk=1,1
+Disk=1,3
 Codiak=1,2
 Avenger=1,2
 Cougar=1,2

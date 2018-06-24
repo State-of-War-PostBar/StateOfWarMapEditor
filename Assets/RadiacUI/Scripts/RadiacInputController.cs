@@ -5,16 +5,6 @@ using System.Text;
 
 namespace RadiacUI
 {
-    public enum InputOperator
-    {
-        Backspace = 1,
-        MoveLeft,
-        MoveRight,
-        MoveUp,
-        MoveDown,
-        LineBreak,
-    }
-    
     public static class RadiacInputController
     {
         public static RadiacInputReceiver focusing = null;
@@ -24,84 +14,60 @@ namespace RadiacUI
         /// </summary>
         public const float longPressThreshold = 0.5f; // press a key 0.8s to toggle long press.
         public const float longPressRepeatDelay = 0.03f; // 30ms per input.
-        static float longPressCount; // the exceedede time for long press.
-        static KeyCode lastPressKey;
+        static float longPressCount; // the exceeded time for long press.
         static float lastPressTime;
+        
+        public static Action<Event> KeyboardBypass;
+        
+        public static bool ctrl { get; private set; }
+        public static bool shift { get; private set; }
+        public static bool alt { get; private set; }
+        
+        static bool inputStrAssigned = false;
         
         public static void Init()
         {
-            RadiacEnvironment.RadiacUpdates += KeyboardInputDispatch;
-            lastPressKey = KeyCode.None;
+            RadiacEnvironment.RadiacUpdates += () => inputStrAssigned = false;
+            RadiacEnvironment.RadiacGUICallback += GUIUpdate;
+            KeyboardBypass = (e) => { };
+            
             // TODO!
             // Load global shortcut configuration.
+            
         }
         
-        
-        
-        public static void KeyboardInputDispatch()
+        public static void GUIUpdate()
         {
-            foreach(KeyCode i in Enum.GetValues(typeof(KeyCode)))
-            {
-                if(Input.GetKey(i))
-                {
-                    if(i != lastPressKey)
-                    {
-                        lastPressKey = i;
-                        longPressCount = 0;
-                    }
-                    break;
-                }
-            }
+            var e = Event.current;
+            if(!e.isKey) return;
+            if(e.type != EventType.keyDown) return;
+            if(e.keyCode == KeyCode.None) return;
             
-            // Composite with the input string,
-            // it can be easily used for text input and also the other inputs.
-            
-            string keys = Input.inputString.ToLower();
+            ctrl = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+            shift = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            alt = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
             
             if(focusing == null)
             {
-                // TODO!
-                // do nothing recently...
+                KeyboardBypass(e);
             }
             else
             {
-                bool shift = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-                bool alt = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
-                bool ctrl = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-                
-                foreach(var i in keys)
+                if(e.functionKey || char.IsControl((char)e.keyCode))
                 {
-                    if(!char.IsControl(i))
-                    {
-                        focusing.ReceiveChar(ctrl, shift, alt, i);
-                    }
+                    focusing.ReceiveOperator(e.keyCode);
                 }
-                
-                DealWithOperator(KeyCode.Backspace, InputOperator.Backspace);
-                DealWithOperator(KeyCode.LeftArrow, InputOperator.MoveLeft);
-                DealWithOperator(KeyCode.RightArrow, InputOperator.MoveRight);
-                DealWithOperator(KeyCode.UpArrow, InputOperator.MoveUp);
-                DealWithOperator(KeyCode.DownArrow, InputOperator.MoveDown);
-                DealWithOperator(KeyCode.Return, InputOperator.LineBreak);
-            }
-        }
-        
-        static void DealWithOperator(KeyCode key, InputOperator op)
-        {
-            if(Input.GetKeyDown(key))
-            {
-                focusing.ReceiveOperator(op);
-            }
-            
-            // Repeat.
-            if(lastPressKey == key && Input.GetKey(key))
-            {
-                longPressCount += Time.deltaTime;
-                if(longPressCount >= longPressThreshold)
+                else
                 {
-                    for(int i=1; i<(longPressCount - longPressThreshold) / longPressRepeatDelay; i++)
-                        focusing.ReceiveOperator(op);
-                    longPressCount = longPressThreshold + (longPressCount - longPressThreshold) % longPressRepeatDelay;
+                    if(!inputStrAssigned)
+                    {
+                        foreach(var c in Input.inputString) if(!char.IsControl(c))
+                        {
+                            focusing.ReceiveChar(c);
+                        }
+                        
+                        inputStrAssigned = true;
+                    }
                 }
             }
         }

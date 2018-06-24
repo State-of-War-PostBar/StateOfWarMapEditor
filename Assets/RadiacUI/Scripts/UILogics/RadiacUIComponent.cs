@@ -55,13 +55,13 @@ namespace RadiacUI
             
             if(emitActive != "" && emitActive.Contains(activeSignal))
             {
-                throw new ArgumentException("Signal When Active should not contains Active Signal.");
+                throw new ArgumentException("Signal When Active should not contains Emit Active.");
             }
             AddCallback(new Signal(activeSignal), () => selfActive = true);
             
             if(emitDeactive != "" && emitDeactive.Contains(deactiveSignal))
             {
-                throw new ArgumentException("Signal When Deactive should not contains Deactive Signal.");
+                throw new ArgumentException("Signal When Deactive should not contains Emit Deactive.");
             }
             AddCallback(new Signal(deactiveSignal), () => selfActive = false);
             

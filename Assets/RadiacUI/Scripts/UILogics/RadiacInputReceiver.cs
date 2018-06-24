@@ -16,17 +16,16 @@ namespace RadiacUI
         public string focusSignal;
         public string cancelSignal;
         
-        public virtual void ReceiveOperator(InputOperator op)
+        public virtual void ReceiveOperator(KeyCode op)
         {
             // do nothing...
             // place holder recently...
         }
         
-        public virtual void ReceiveChar(bool ctrl, bool shift, bool alt, char c)
+        public virtual void ReceiveChar(char c)
         {
             // do nothing...
             // place holder recently...
-            
         }
         
         protected override void Start()

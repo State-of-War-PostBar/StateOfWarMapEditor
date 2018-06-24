@@ -44,12 +44,15 @@ TagManager:
   - name: Background
     uniqueID: 24247675
     locked: 0
-  - name: TileTags
-    uniqueID: 413544993
+  - name: PointingInfo
+    uniqueID: 3498936597
     locked: 0
-  - name: Buildings
-    uniqueID: 3117775645
+  - name: Tiles
+    uniqueID: 413544993
     locked: 0
   - name: Units
     uniqueID: 8309697
+    locked: 0
+  - name: Buildings
+    uniqueID: 2247302575
     locked: 0

@@ -40,7 +40,7 @@ namespace RadiacUI
     {
         public static bool suspended = false;
         
-        static Dictionary<Signal, HashSet<Action>> listeners = new Dictionary<Signal, HashSet<Action>>();
+        static Dictionary<Signal, List<Action>> listeners = new Dictionary<Signal, List<Action>>();
         
         public static void EmitSignal(params string[] x) { if(x != null) foreach(var i in x) EmitSignal(i); }
         public static void EmitSignal(params Signal[] x) { if(x != null) foreach(var i in x) EmitSignal(i); }
@@ -60,7 +60,7 @@ namespace RadiacUI
         public static void AddSignalCallback(Signal x, Action action)
         {
             Log.AddLogFormat("Add signal [{0}] -> [{1}]", x, action);
-            if(!listeners.ContainsKey(x)) listeners.Add(x, new HashSet<Action>());
+            if(!listeners.ContainsKey(x)) listeners.Add(x, new List<Action>());
             listeners[x].Add(action);
         }
         
@@ -70,5 +70,4 @@ namespace RadiacUI
             listeners[x].Remove(action);
         }
     }
-    
 }

@@ -8,7 +8,7 @@ namespace RadiacUI
     // ================================================================================================================
     // ================================================================================================================
     
-    public static class RadiacFunctional
+    internal static class RadiacFunctional
     {
         public static To[] Map<From, To>(From[] src, Func<From, To> f)
         {
@@ -81,18 +81,18 @@ namespace RadiacUI
     
     internal static class RadiacAlgorithm
     {
-        internal enum DFSStyle
+        public enum DFSStyle
         {
             Preorder,
             Postorder
         }
         
-        internal static void ForeachChild(Transform t, Action<Transform> f)
+        public static void ForeachChild(Transform t, Action<Transform> f)
         {
             for(int i=0; i<t.childCount; i++) f(t.GetChild(i));
         }
         
-        internal static void DFSHierarchy(Transform root, Action<Transform> f, DFSStyle style = DFSStyle.Preorder)
+        public static void DFSHierarchy(Transform root, Action<Transform> f, DFSStyle style = DFSStyle.Preorder)
         {
             switch(style)
             {
@@ -124,7 +124,7 @@ namespace RadiacUI
     // ================================================================================================================
     internal static class RadiacUtility
     {
-        internal static Rect? Intersect(this Rect rect, Rect other)
+        public static Rect? Intersect(this Rect rect, Rect other)
         {
             float wr = Mathf.Min(rect.xMax, other.xMax);
             float wl = Mathf.Max(rect.xMin, other.xMin);
@@ -134,35 +134,35 @@ namespace RadiacUI
             return new Rect(wl, hb, wr - wl, ht - hb);
         }
         
-        internal static Rect Transform(this Rect rect, Vector2 pos)
+        public static Rect Transform(this Rect rect, Vector2 pos)
         {
             return new Rect(rect.x + pos.x, rect.y + pos.y, rect.width, rect.height);
         }
         
-        internal static bool IsInRect(this Vector2 pos, Rect rect)
+        public static bool IsInRect(this Vector2 pos, Rect rect)
         {
             return rect.Contains(pos);
         }
         
-        internal static bool IsInAnyOf(this Vector2 pos, params Rect[] rects)
+        public static bool IsInAnyOf(this Vector2 pos, params Rect[] rects)
         {
             foreach(var i in rects) if(pos.IsInRect(i)) return true;
             return false;
         }
         
-        internal static bool IsInAllOf(this Vector2 pos, params Rect[] rects)
+        public static bool IsInAllOf(this Vector2 pos, params Rect[] rects)
         {
             foreach(var i in rects) if(!pos.IsInRect(i)) return false;
             return true;
         }
         
-        internal static bool Contains<T>(this IList<T> v, T val) where T : IEquatable<T>
+        public static bool Contains<T>(this IList<T> v, T val) where T : IEquatable<T>
         {
             foreach(var i in v) if(i.Equals(val)) return true;
             return false;
         }
         
-        internal static void DrawRectangleGizmos(Rect rect, float h, Color c)
+        public static void DrawRectangleGizmos(Rect rect, float h, Color c)
         {
             var bottomLeft = new Vector3(rect.xMin, rect.yMin, h);
             var bottomRight = new Vector3(rect.xMax, rect.yMin, h);
@@ -174,7 +174,7 @@ namespace RadiacUI
             Debug.DrawLine(bottomRight, topRight, c);
         }
         
-        internal static T FindComponentInParents<T>(this Transform cur) where T : MonoBehaviour
+        public static T FindComponentInParents<T>(this Transform cur) where T : MonoBehaviour
         {
             if(cur == null) return null;
             return _FindComponentInParents<T>(cur.parent);
@@ -188,7 +188,7 @@ namespace RadiacUI
             return _FindComponentInParents<T>(cur.parent);
         }
         
-        internal static T[] FindComponentsInParents<T>(this Transform cur) where T : MonoBehaviour
+        public static T[] FindComponentsInParents<T>(this Transform cur) where T : MonoBehaviour
         {
             if(cur == null) return new T[0];
             List<T> res = new List<T>();
@@ -196,7 +196,7 @@ namespace RadiacUI
             return res.ToArray();
         }
         
-        internal static void _FindComponentsInParents<T>(Transform cur, List<T> res) where T : MonoBehaviour
+        public static void _FindComponentsInParents<T>(Transform cur, List<T> res) where T : MonoBehaviour
         {
             if(cur == null) return;
             var x = cur.GetComponent<T>();
@@ -204,30 +204,30 @@ namespace RadiacUI
             _FindComponentsInParents(cur.parent, res);
         }
         
-        internal static Color SetR(this Color c, float r) => new Color(r, c.g, c.b, c.a);
-        internal static Color SetG(this Color c, float g) => new Color(c.r, g, c.b, c.a);
-        internal static Color SetB(this Color c, float b) => new Color(c.r, c.g, b, c.a);
-        internal static Color SetA(this Color c, float a) => new Color(c.r, c.g, c.b, a);
+        public static Color SetR(this Color c, float r) => new Color(r, c.g, c.b, c.a);
+        public static Color SetG(this Color c, float g) => new Color(c.r, g, c.b, c.a);
+        public static Color SetB(this Color c, float b) => new Color(c.r, c.g, b, c.a);
+        public static Color SetA(this Color c, float a) => new Color(c.r, c.g, c.b, a);
         
-        internal static Vector2 SetX(this Vector2 v, float x) => new Vector2(x, v.y);
-        internal static Vector2 SetY(this Vector2 v, float y) => new Vector2(v.x, y);
+        public static Vector2 SetX(this Vector2 v, float x) => new Vector2(x, v.y);
+        public static Vector2 SetY(this Vector2 v, float y) => new Vector2(v.x, y);
         
-        internal static Vector3 SetX(this Vector3 v, float x) => new Vector3(x, v.y, v.z);
-        internal static Vector3 SetY(this Vector3 v, float y) => new Vector3(v.x, y, v.z);
-        internal static Vector3 SetZ(this Vector3 v, float z) => new Vector3(v.x, v.y, z);
+        public static Vector3 SetX(this Vector3 v, float x) => new Vector3(x, v.y, v.z);
+        public static Vector3 SetY(this Vector3 v, float y) => new Vector3(v.x, y, v.z);
+        public static Vector3 SetZ(this Vector3 v, float z) => new Vector3(v.x, v.y, z);
         
-        internal static Vector4 SetX(this Vector4 v, float x) => new Vector4(x, v.y, v.z, v.w);
-        internal static Vector4 SetY(this Vector4 v, float y) => new Vector4(v.x, y, v.z, v.w);
-        internal static Vector4 SetZ(this Vector4 v, float z) => new Vector4(v.x, v.y, z, v.w);
-        internal static Vector4 SetW(this Vector4 v, float w) => new Vector4(v.x, v.y, v.z, w);
+        public static Vector4 SetX(this Vector4 v, float x) => new Vector4(x, v.y, v.z, v.w);
+        public static Vector4 SetY(this Vector4 v, float y) => new Vector4(v.x, y, v.z, v.w);
+        public static Vector4 SetZ(this Vector4 v, float z) => new Vector4(v.x, v.y, z, v.w);
+        public static Vector4 SetW(this Vector4 v, float w) => new Vector4(v.x, v.y, v.z, w);
         
-        internal static Vector2 Clamp(this Vector2 v, Vector2 l, Vector2 u)
+        public static Vector2 Clamp(this Vector2 v, Vector2 l, Vector2 u)
             => new Vector2(Mathf.Clamp(v.x, l.x, u.x), Mathf.Clamp(v.y, l.y, u.y));
-        internal static Vector3 Clamp(this Vector3 v, Vector3 l, Vector3 u)
+        public static Vector3 Clamp(this Vector3 v, Vector3 l, Vector3 u)
             => new Vector3(Mathf.Clamp(v.x, l.x, u.x), Mathf.Clamp(v.y, l.y, u.y), Mathf.Clamp(v.z, l.z, u.z));
-        internal static Vector4 Clamp(this Vector4 v, Vector4 l, Vector4 u)
+        public static Vector4 Clamp(this Vector4 v, Vector4 l, Vector4 u)
             => new Vector4(Mathf.Clamp(v.x, l.x, u.x), Mathf.Clamp(v.y, l.y, u.y), Mathf.Clamp(v.z, l.z, u.z), Mathf.Clamp(v.w, l.w, u.w));
-        internal static Color Clamp(this Color v, Color l, Color u)
+        public static Color Clamp(this Color v, Color l, Color u)
             => new Color(Mathf.Clamp(v.r, l.r, u.r), Mathf.Clamp(v.g, l.g, u.g), Mathf.Clamp(v.b, l.b, u.b), Mathf.Clamp(v.a, l.a, u.a));
     }
     

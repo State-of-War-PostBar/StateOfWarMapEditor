@@ -9,6 +9,8 @@ TileModification=地块属性修改
 GlobalSetting=全局设置
 Placement=建筑单位摆放
 
+FileSaved=文件保存!
+
 # ===== 指定文件 =====
 
 EdtReadHint=Edt文件...
@@ -18,8 +20,21 @@ MapNotFound=路径不正确
 SrfReadHint=Srf文件...
 SrfNotFound=路径不正确
 
-# ===== 全局设置 =====
+# ===== 单位编辑 =====
 
+
+CoordX=横坐标(X)
+CoordY=纵坐标(Y)
+HasSatellite=卫星防护
+Owner=阵营
+Upgrade=升级
+Production=生产线
+Level=等级
+Type=类型
+Health=血量
+
+
+# ===== 全局设置 =====
 
 Player=玩家
 Enemy=敌方
@@ -41,3 +56,9 @@ Meteor=陨石
 Carrier=运兵船
 Tripler=连环轰炸
 Fighter=战斗机
+
+TimeLimit=时限
+TimeToggle=时限开关
+TimeVictory=胜利
+TimeFail=失败
+TimeReinforce=援军

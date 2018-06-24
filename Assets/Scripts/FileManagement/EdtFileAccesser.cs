@@ -14,6 +14,8 @@ namespace MapEditor
         
         public Text text = null;
         
+        [SerializeField] string recentFilePath = null;
+        
         protected override void Start()
         {
             base.Start();
@@ -23,14 +25,17 @@ namespace MapEditor
         
         protected override void SignalBypass()
         {
-            if(Edt.Validate(text.text))
+            if(recentFilePath == null || recentFilePath != text.text)
             {
-                Global.inst.edt = new Edt(text.text);
-                Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
-            }
-            else
-            {
-                Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
+                if(Edt.Validate(text.text))
+                {
+                    Global.inst.edt = new Edt(text.text);
+                    Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+                }
+                else
+                {
+                    Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
+                }
             }
         }
     }

@@ -47,19 +47,26 @@ namespace MapEditor
             var map = Global.inst.map;
             Preserve(map.width * map.height);
             int cur = 0;
-            foreach(var t in map)
+            // Optimize:
+            // Do not use iterator. The MoveNext() function of it may causes bad performance.
+            for(int x=0; x<map.headerInfo.width; x++) for(int y=0; y<map.headerInfo.height; y++)
             {
-                SpriteRenderer rd = null;
-                rd = pool[cur].GetComponent<SpriteRenderer>();
+                var rd = pool[cur];
                 
                 int code = 0;
+                var t = map[x, y];
                 code += t.ground == TileGround.Blocked ? 4 : 0;
                 code += t.air == TileAir.Blocked ? 2 : 0;
                 code += t.turret == TileTurret.Blocked ? 1 : 0;
-                rd.sprite = states[code];
                 
-                var sz = new Vector2(rd.sprite.texture.width, rd.sprite.texture.height);
-                rd.transform.position = Vector2.Scale(new Vector2(t.x, -t.y), sz);
+                // Optimize:
+                // The sprite assign has some performance cost...
+                if(rd.sprite != states[code])
+                {
+                    rd.sprite = states[code];
+                }
+                
+                rd.transform.position = new Vector2(rd.sprite.texture.width * t.x, -t.y * rd.sprite.texture.height);
                 
                 rd.gameObject.SetActive(true);
                 

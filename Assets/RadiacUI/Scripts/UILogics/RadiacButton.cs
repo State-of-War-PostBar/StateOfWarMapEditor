@@ -13,6 +13,10 @@ namespace RadiacUI
     {
         public string emitMouseClick;
         public string emitMouseRelease;
+        public string emitRightClick;
+        public string emitRightRelease;
+        public string emitMiddleClick;
+        public string emitMiddleRelease;
         
         protected override void Update()
         {
@@ -30,6 +34,25 @@ namespace RadiacUI
                 SignalManager.EmitSignal(emitMouseRelease);
             }
             
+            if(cursorHovering && Input.GetMouseButtonDown(1))
+            {
+                SignalManager.EmitSignal(emitRightClick);
+            }
+            
+            if(cursorHovering && Input.GetMouseButtonUp(1))
+            {
+                SignalManager.EmitSignal(emitRightRelease);
+            }
+            
+            if(cursorHovering && Input.GetMouseButtonDown(2))
+            {
+                SignalManager.EmitSignal(emitMiddleClick);
+            }
+            
+            if(cursorHovering && Input.GetMouseButtonUp(2))
+            {
+                SignalManager.EmitSignal(emitMiddleRelease);
+            }
         }
     }
 }

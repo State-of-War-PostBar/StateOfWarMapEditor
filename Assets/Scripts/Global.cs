@@ -24,6 +24,30 @@ namespace MapEditor
         public Edt edt;
         public Map map;
         public Texture2D srf;
+        
+        
+        public Vector2 cursorPointing
+        {
+            get
+            {
+                return RadiacUI.VirtualCursor.position
+                    + (Vector2)Camera.main.transform.position
+                    - new Vector2(Screen.width, Screen.height) * 0.5f;
+            }
+        }
+        
+        public Vector2Int cursorPointingGrid
+        {
+            get
+            {
+                // TODO:
+                // Hard code grid size.
+                // This should be move to other place...
+                // Alongside the same value that appears everywhere.
+                var cur = cursorPointing / 32.0f;
+                return new Vector2Int(Mathf.FloorToInt(cur.x), Mathf.FloorToInt(cur.y));
+            }
+        }
     }
     
     

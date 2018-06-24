@@ -12,15 +12,30 @@ namespace RadiacUI
     [RequireComponent(typeof(RadiacDisplayController))]
     public class RadiacTextInput : RadiacInputReceiver
     {
-        Text text { get { return this.gameObject.GetComponent<Text>(); } }
+        Text textComponent { get { return this.gameObject.GetComponent<Text>(); } }
         RectTransform rectTransform { get { return this.gameObject.GetComponent<RectTransform>(); } }
-        TextGenerator gen { get { return text.cachedTextGenerator; } }
+        TextGenerator gen { get { return textComponent.cachedTextGenerator; } }
         
-        [SerializeField] Material caretMaterial;
-        [SerializeField] Image caret;
-        [SerializeField] float caretWidth;
-        [SerializeField] AnimationCurve caretAlphaCurve;
-        [SerializeField] float caretBlinkSpeedMult = 1.0f;
+        public int totalLength { get { return textComponent.text.Length; } }
+        
+        /// <summary>
+        /// This is the outer interface that allow other functions to access and assgin this text.
+        /// Text access is instant to in-editing text input widget.
+        /// Text assign is allowed when not focusing, and is prevented otherwise.
+        /// </summary>
+        public string text
+        {
+            get { return this.gameObject.GetComponent<Text>().text; }
+            set
+            {
+                if(!focused)
+                {
+                    textComponent.text = value;
+                }
+            }
+        } 
+        
+        [SerializeField] RadiacCaret caret;
         
         /// <summary>
         /// Caret position of the whole string.
@@ -46,36 +61,47 @@ namespace RadiacUI
             base.Start();
         }
         
-        public override void ReceiveOperator(InputOperator op)
+        public override void ReceiveOperator(KeyCode op)
         {
             switch(op)
             {
-                case InputOperator.Backspace:
+                case KeyCode.Backspace:
                 {
-                    if(text.text.Length != 0)
+                    // TODO:
+                    // Word remove.
+                    // Needs word segmentation.
+                    
+                    if(RadiacInputController.shift)
+                    {
+                        textComponent.text = "";
+                        caretPos = 0;
+                        break;
+                    }
+                    
+                    if(totalLength != 0)
                     {
                         if(caretPos != 0)
                         {
                             caretPos--;
                         }
-                        text.text = text.text.Remove(caretPos, 1);
+                        textComponent.text = textComponent.text.Remove(caretPos, 1);
                     }
                     break;
                 }
                 
-                case InputOperator.MoveLeft:
+                case KeyCode.LeftArrow:
                 {
                     caretPos = Mathf.Max(0, caretPos - 1);
                     break;
                 }
                 
-                case InputOperator.MoveRight:
+                case KeyCode.RightArrow:
                 {
-                    caretPos = Mathf.Min(text.text.Length, caretPos + 1);
+                    caretPos = Mathf.Min(totalLength, caretPos + 1);
                     break;
                 }
                 
-                case InputOperator.MoveUp:
+                case KeyCode.UpArrow:
                 {
                     if(caretLine == 0)
                     {
@@ -83,28 +109,36 @@ namespace RadiacUI
                     }
                     else
                     {
-                        caretPos -= gen.lines[caretLine].startCharIdx - gen.lines[caretLine-1].startCharIdx;
+                        var indexInLine = caretPos - gen.lines[caretLine].startCharIdx;
+                        caretPos = Math.Min(gen.lines[caretLine-1].startCharIdx + indexInLine, gen.lines[caretLine].startCharIdx-1);
                     }
                     break;
                 }
                 
-                case InputOperator.MoveDown:
+                case KeyCode.DownArrow:
                 {
                     if(caretLine == gen.lines.Count - 1)
                     {
-                        caretPos = text.text.Length;
+                        caretPos = totalLength;
                     }
                     else
                     {
-                        caretPos += gen.lines[caretLine+1].startCharIdx - gen.lines[caretLine].startCharIdx;
-                        caretPos = Mathf.Min(caretPos, text.text.Length);
+                        var indexInLine = caretPos - gen.lines[caretLine].startCharIdx;
+                        if(caretLine+2 < gen.lineCount)
+                        {
+                            caretPos = Math.Min(gen.lines[caretLine+1].startCharIdx + indexInLine, gen.lines[caretLine+2].startCharIdx - 1);
+                        }
+                        else
+                        {
+                            caretPos = Math.Min(gen.lines[caretLine+1].startCharIdx + indexInLine, totalLength);
+                        }
                     }
                     break;
                 }
                 
-                case InputOperator.LineBreak:
+                case KeyCode.Return:
                 {
-                    text.text = text.text.Insert(caretPos, "\n");
+                    textComponent.text = textComponent.text.Insert(caretPos, "\n");
                     caretPos++;
                     break;
                 }
@@ -113,28 +147,52 @@ namespace RadiacUI
             }
         }
         
-        public override void ReceiveChar(bool ctrl, bool shift, bool alt, char c)
+        public override void ReceiveChar(char c)
         {
-            if(shift) c = char.ToUpper(c);
-            text.text = text.text.Insert(caretPos, c.ToString());
+            // TODO:
+            // Needs a reason that put this sentence here, but not in RadiacInputReceiver...
+            if(!active) return;
+            
+            if(RadiacInputController.shift)
+                c = char.ToUpper(c);
+            else
+                c = char.ToLower(c);
+            
+            // TODO:
+            // Optimize.
+            // Should be implemented using a specific data structure which implements IList<char>...
+            textComponent.text = textComponent.text.Insert(caretPos, c.ToString());
+            
             caretPos++;
         }
         
         protected override void Update()
         {
             base.Update();
-            DrawCaret();
+            if(focused)
+            {
+                caret.RequireDisplay(this);
+                SetCaretPos();
+            }
+            else
+            {
+                caret.RevokeDisplay(this);
+            }
         }
         
-        public void DrawCaret()
+        /// <summary>
+        /// Only set caret's positon , and make an requirement for displaying the caret.
+        /// All drawing things are managed in caret script.
+        /// </summary>
+        public void SetCaretPos()
         {
-            gen.Populate(text.text, text.GetGenerationSettings(rectTransform.rect.size));
+            // TODO:
+            // Is this really a good place to run this?
+            gen.Populate(textComponent.text, textComponent.GetGenerationSettings(rectTransform.rect.size));
+            
             var rect = GetCaretRect(caretPos, caretLine);
             caret.rectTransform.sizeDelta = rect.size;
             caret.rectTransform.position = new Vector3(rect.center.x, rect.center.y, caret.rectTransform.position.y);
-            caret.GetComponent<RadiacDisplayController>().baseColor =
-                caret.GetComponent<RadiacDisplayController>().baseColor.SetA(
-                    (focused ? 1f : 0f) * caretAlphaCurve.Evaluate(Time.time * caretBlinkSpeedMult));
         }
         
         Rect GetCaretRect(int caretPos, int caretLine)
@@ -146,11 +204,11 @@ namespace RadiacUI
             
             var curOffset = new Vector2(
                 gen.characters[caretPos].cursorPos.x,
-                gen.lines[caretLine].topY) / text.pixelsPerUnit;
-            float height = gen.lines[caretLine].height / text.pixelsPerUnit;
+                gen.lines[caretLine].topY) / textComponent.pixelsPerUnit;
+            float height = gen.lines[caretLine].height / textComponent.pixelsPerUnit;
             
             var bottomLeft = rectTransform.position + new Vector3(curOffset.x, curOffset.y - height, -1f);
-            var topRight = rectTransform.position + new Vector3(curOffset.x + caretWidth, curOffset.y, -1f);
+            var topRight = rectTransform.position + new Vector3(curOffset.x + caret.width, curOffset.y, -1f);
             
             #if RADIAC_DEBUG
             

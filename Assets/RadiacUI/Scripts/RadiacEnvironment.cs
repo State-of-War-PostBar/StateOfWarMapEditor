@@ -13,6 +13,7 @@ namespace RadiacUI
         public static RadiacEnvironment instance;
         public static Action RadiacUpdates;
         public static Action RadiacFixedUpdates;
+        public static Action RadiacGUICallback;
         
         void Awake()
         {
@@ -22,6 +23,7 @@ namespace RadiacUI
             
             RadiacUpdates = () => { };
             RadiacFixedUpdates = () => { };
+            RadiacGUICallback = () => { };
             
             // Static initialization are placed here.
             
@@ -41,6 +43,11 @@ namespace RadiacUI
         void FixedUpdate()
         {
             RadiacFixedUpdates();
+        }
+        
+        void OnGUI()
+        {
+            RadiacGUICallback();
         }
     }
 }
