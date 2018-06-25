@@ -18,12 +18,22 @@ namespace MapEditor
             if(inst != null)
                 throw new InvalidOperationException("Re-init global object!");
             inst = this;
+            
+            showGridPointer = true;
         }
         
         public TextAgent textAgent = new TextAgent();
+        
         public Edt edt;
+        public string edtName;
+        
         public Map map;
+        public string mapName;
+        
         public Texture2D srf;
+        public string srfName;
+        
+        public bool showGridPointer;
         
         
         public Vector2 cursorPointing

@@ -6,39 +6,22 @@ using System.IO;
 
 namespace MapEditor
 {
-    public sealed class MapFileAccesser : RadiacBypass
+    public sealed class MapFileAccesser : FileAccesser
     {
-        const string textRequest = "MapFileName";
-        const string notFound = "$MapNotFound$";
-        const string readHint = "$MapReadHint$";
+        protected override string textRequest { get { return "MapFileName"; } }
+        protected override string notFound { get { return "$MapNotFound$"; } }
+        protected override string readHint { get { return "$MapReadHint$"; } }
         
-        public Text text = null;
         
-        [SerializeField] string recentFilePath = null;
-        
-        protected override void Start()
+        protected override bool LoadNewFile()
         {
-            base.Start();
-            Global.inst.textAgent.Register(textRequest);
-            Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(readHint));
-        }
-        
-        protected override void SignalBypass()
-        {
-            if((recentFilePath == null || recentFilePath != text.text))
-            {
-                if(Map.Validate(text.text))
-                {
-                    Global.inst.map = new Map(text.text);
-                    Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
-                    
-                    recentFilePath = text.text;
-                }
-                else
-                {
-                    Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
-                }
-            }
+            if(!Map.Validate(text.text)) return false;
+            
+            Global.inst.map = new Map(text.text);
+            Global.inst.mapName = text.text;
+            Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+                
+            return true;
         }
     }
 }

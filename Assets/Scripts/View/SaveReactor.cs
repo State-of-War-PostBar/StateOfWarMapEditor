@@ -8,36 +8,29 @@ using StateOfWarUtility;
 namespace MapEditor
 {
     [RequireComponent(typeof(Graphic))]
-    public sealed class SaveReactor : MonoBehaviour
+    public sealed class SaveReactor : SignalReceiver
     {
+        public string fileSaveSignal;
+        
         // public string emitFileSave;
         public float fadePerSecond;
         
-        [SerializeField] Text edtNameText;
-        [SerializeField] Text mapNameText;
         [SerializeField] Color baseColor;
         
         Graphic rd { get { return this.GetComponent<Graphic>(); } }
+        
+        [SerializeField] Text edtNameText;
+        [SerializeField] Text mapNameText;
         
         void Start()
         {
             baseColor = rd.color;
             rd.color = new Color(rd.color.a, rd.color.g, rd.color.b, 0f);
             
-            RadiacInputController.KeyboardBypass += (Event e) =>
+            AddCallback(new Signal(fileSaveSignal), () =>
             {
-                if(Input.GetKeyDown(KeyCode.S) && RadiacInputController.ctrl)
-                {
-                    if(Global.inst.edt != null)
-                        Global.inst.edt.Save(edtNameText.text);
-                    if(Global.inst.map != null)
-                        Global.inst.map.Save(mapNameText.text);
-                
-                    // SignalManager.EmitSignal(new Signal(emitFileSave));
-                    
-                    rd.color = baseColor;
-                }
-            };
+                rd.color = baseColor;
+            });
         }
         
         void Update()

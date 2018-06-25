@@ -12,6 +12,8 @@ namespace MapEditor
         public string signalEnterMove;
         public string signalLeaveMove;
         
+        public float areaLimit;
+        
         public float moveMultiply = 1.0f;
         
         public Vector2 backPosition;
@@ -55,6 +57,8 @@ namespace MapEditor
             if(moving)
             {
                 cam.transform.Translate(moveMultiply * VirtualCursor.deltaPosition);
+                cam.transform.position = cam.transform.position
+                    .Clamp(new Vector3(-areaLimit, -areaLimit, -areaLimit), new Vector3(areaLimit, areaLimit, areaLimit));
             }
         }
         

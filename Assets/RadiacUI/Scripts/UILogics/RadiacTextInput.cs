@@ -31,6 +31,7 @@ namespace RadiacUI
                 if(!focused)
                 {
                     textComponent.text = value;
+                    caretPos = Math.Min(caretPos, value.Length);
                 }
             }
         } 
@@ -41,6 +42,9 @@ namespace RadiacUI
         /// Caret position of the whole string.
         /// </summary>
         [SerializeField] int caretPos;
+        
+        public bool singleLine;
+        public int lengthLimit;
         
         int caretLine
         {
@@ -138,8 +142,12 @@ namespace RadiacUI
                 
                 case KeyCode.Return:
                 {
-                    textComponent.text = textComponent.text.Insert(caretPos, "\n");
-                    caretPos++;
+                    if(!singleLine)
+                    {
+                        textComponent.text = textComponent.text.Insert(caretPos, "\n");
+                        caretPos++;
+                    }
+                    
                     break;
                 }
                 
@@ -153,17 +161,20 @@ namespace RadiacUI
             // Needs a reason that put this sentence here, but not in RadiacInputReceiver...
             if(!active) return;
             
-            if(RadiacInputController.shift)
-                c = char.ToUpper(c);
-            else
-                c = char.ToLower(c);
-            
-            // TODO:
-            // Optimize.
-            // Should be implemented using a specific data structure which implements IList<char>...
-            textComponent.text = textComponent.text.Insert(caretPos, c.ToString());
-            
-            caretPos++;
+            if(textComponent.text.Length != lengthLimit)
+            {
+                if(RadiacInputController.shift)
+                    c = char.ToUpper(c);
+                else
+                    c = char.ToLower(c);
+                
+                // TODO:
+                // Optimize.
+                // Should be implemented using a specific data structure which implements IList<char>...
+                textComponent.text = textComponent.text.Insert(caretPos, c.ToString());
+                
+                caretPos++;
+            }
         }
         
         protected override void Update()

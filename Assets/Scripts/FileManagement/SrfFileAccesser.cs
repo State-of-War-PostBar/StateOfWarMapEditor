@@ -6,51 +6,31 @@ using System.IO;
 
 namespace MapEditor
 {
-    public sealed class SrfFileAccesser : RadiacBypass
+    public sealed class SrfFileAccesser : FileAccesser
     {
-        const string textRequest = "SrfFileName";
-        const string notFound = "$SrfNotFound$";
-        const string readHint = "$SrfReadHint$";
-        public Text text = null;
         
-        [SerializeField] string recentFilePath = null;
+        protected override string textRequest { get { return "SrfFileName"; } }
+        protected override string notFound { get { return "$SrfNotFound$"; } }
+        protected override string readHint { get { return "$SrfReadHint$"; } }
         
-        protected override void Start()
+        protected override bool LoadNewFile()
         {
-            base.Start();
-            Global.inst.textAgent.Register(textRequest);
-            Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(readHint));
-        }
-        
-        protected override void SignalBypass()
-        {
-            if(recentFilePath == null || recentFilePath != text.text)
-            {
-                Texture2D tex = new Texture2D(0, 0, TextureFormat.RGBA32, false);
-                
-                if(Srf.ValidateSrf(text.text))
-                {
-                    tex.LoadImage(Srf.ToJpg(File.ReadAllBytes(text.text)));
-                }
-                else if(Srf.ValidateJpg(text.text))
-                {
-                    tex.LoadImage(File.ReadAllBytes(text.text));
-                }
-                else
-                {
-                    Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
-                    return;
-                }
+            Texture2D tex = new Texture2D(0, 0, TextureFormat.RGBA32, false);
             
-                tex.filterMode = FilterMode.Point;
-                
-                tex.name = Path.GetFileName(text.text);
-                Global.inst.srf = tex;
-                
-                Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
-                
-                recentFilePath = text.text;
-            }
+            if(Srf.ValidateSrf(text.text))
+                tex.LoadImage(Srf.ToJpg(File.ReadAllBytes(text.text)));
+            else if(Srf.ValidateJpg(text.text))
+                tex.LoadImage(File.ReadAllBytes(text.text));
+            else
+                return false;
+        
+            tex.filterMode = FilterMode.Point;
+            tex.name = Path.GetFileName(text.text);
+            Global.inst.srfName = text.text;
+            Global.inst.srf = tex;
+            Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+            
+            return true;
         }
         
     }

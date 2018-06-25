@@ -6,37 +6,20 @@ using System.IO;
 
 namespace MapEditor
 {
-    public sealed class EdtFileAccesser : RadiacBypass
+    public sealed class EdtFileAccesser : FileAccesser
     {
-        const string textRequest = "EdtFileName";
-        const string notFound = "$EdtNotFound$";
-        const string readHint = "$EdtReadHint$";
+        protected override string textRequest { get { return "EdtFileName"; } }
+        protected override string notFound { get { return "$EdtNotFound$"; } }
+        protected override string readHint { get { return "$EdtReadHint$"; } }
         
-        public Text text = null;
-        
-        [SerializeField] string recentFilePath = null;
-        
-        protected override void Start()
+        protected override bool LoadNewFile()
         {
-            base.Start();
-            Global.inst.textAgent.Register(textRequest);
-            Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(readHint));
-        }
-        
-        protected override void SignalBypass()
-        {
-            if(recentFilePath == null || recentFilePath != text.text)
-            {
-                if(Edt.Validate(text.text))
-                {
-                    Global.inst.edt = new Edt(text.text);
-                    Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
-                }
-                else
-                {
-                    Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
-                }
-            }
+            if(!Edt.Validate(text.text)) return false;
+            
+            Global.inst.edt = new Edt(text.text);
+            Global.inst.edtName = text.text;
+            Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+            return true;
         }
     }
 }

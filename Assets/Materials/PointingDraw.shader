@@ -34,14 +34,17 @@
 			struct appdata
 			{
 				float4 vertex : POSITION;
+				// float4 vertColor : COLOR;
 				float2 uv : TEXCOORD0;
 			};
 
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
+				// float4 vertColor : COLOR0;
 				float4 wc : TEXCOORD1;
 				float4 vertex : SV_POSITION;
+				
 			};
 
 			v2f vert (appdata v)
@@ -50,6 +53,7 @@
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.wc = v.vertex;
 				o.uv = v.uv;
+				// o.vertColor = v.vertColor;
 				return o;
 			}
 			
