@@ -12,13 +12,18 @@ namespace MapEditor
         protected override string notFound { get { return "$EdtNotFound$"; } }
         protected override string readHint { get { return "$EdtReadHint$"; } }
         
-        protected override bool LoadNewFile()
+        protected override bool LoadNewFile(string path)
         {
-            if(!Edt.Validate(text.text)) return false;
+            if(!Edt.Validate(path)) return false;
             
-            Global.inst.edt = new Edt(text.text);
-            Global.inst.edtName = text.text;
-            Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+            Global.inst.edt = new Edt(path);
+            Global.inst.edtName = path;
+            Global.inst.textAgent.Update(textRequest, Path.GetFileName(path));
+            
+            Global.inst.selection.id = -1;
+            Global.inst.selection.isUnit = true;
+            Global.inst.selection.selected = false;
+            
             return true;
         }
     }

@@ -1,6 +1,6 @@
 # Unit offsets.
 # Origin is topleft.
-# in pixel units.
+# in v units.
 
 None=0,0
 

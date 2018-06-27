@@ -39,7 +39,10 @@ namespace MapEditor
         void Update()
         {
             if(Global.inst.map != null)
+            {
                 Refresh();
+            }
+            
         }
         
         void Refresh()
@@ -62,13 +65,14 @@ namespace MapEditor
                 // Optimize:
                 // The sprite assign has some performance cost...
                 if(rd.sprite != states[code])
-                {
                     rd.sprite = states[code];
-                }
                 
                 rd.transform.position = new Vector2(rd.sprite.texture.width * t.x, -t.y * rd.sprite.texture.height);
-                
                 rd.gameObject.SetActive(true);
+                if(Global.inst.showTiles)
+                    rd.color = Color.white;
+                else
+                    rd.color = new Color(1f, 1f, 1f, 0f);
                 
                 cur++;
             }

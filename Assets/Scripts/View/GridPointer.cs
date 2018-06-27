@@ -21,7 +21,8 @@ namespace MapEditor
         void Update()
         {
             Vector2 pos = Global.inst.cursorPointingGrid;
-            rd.material.SetVector("_CursorPosition", pos * 32f + new Vector2(16f, 16f));
+            pos.y = -pos.y;
+            rd.material.SetVector("_CursorPosition", pos * Global.gridSize + new Vector2(16f, -16f));
             
             if(Global.inst.showGridPointer)
             {

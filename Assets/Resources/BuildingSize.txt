@@ -1,0 +1,20 @@
+# Building sizes.
+# in grid units.
+
+None=0,0
+
+TurretDefence=1,1
+TurretAntiair=1,1
+TurretIon=1,1
+TurretLed=1,2
+TurretCluster=1,2
+
+Headquater=4,3
+LightFactory=3,2
+MediumFactory=5,3
+HeavyFactory=5,3
+Radar=3,3
+Mine=3,2
+ResearchStation=3,3
+Fan=3,3
+BotFactory=4,3

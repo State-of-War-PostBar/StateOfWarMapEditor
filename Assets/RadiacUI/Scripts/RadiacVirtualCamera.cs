@@ -42,7 +42,6 @@ namespace RadiacUI
                 size = new Vector2(Screen.width, Screen.height);
             };
         }
-        
     }
     
 }

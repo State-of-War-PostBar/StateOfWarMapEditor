@@ -12,14 +12,13 @@ namespace MapEditor
         protected override string notFound { get { return "$MapNotFound$"; } }
         protected override string readHint { get { return "$MapReadHint$"; } }
         
-        
-        protected override bool LoadNewFile()
+        protected override bool LoadNewFile(string path)
         {
-            if(!Map.Validate(text.text)) return false;
+            if(!Map.Validate(path)) return false;
             
-            Global.inst.map = new Map(text.text);
-            Global.inst.mapName = text.text;
-            Global.inst.textAgent.Update(textRequest, Path.GetFileName(text.text));
+            Global.inst.map = new Map(path);
+            Global.inst.mapName = path;
+            Global.inst.textAgent.Update(textRequest, Path.GetFileName(path));
                 
             return true;
         }

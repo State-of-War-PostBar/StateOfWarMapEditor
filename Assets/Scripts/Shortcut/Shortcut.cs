@@ -1,11 +1,15 @@
 using UnityEngine;
 using RadiacUI;
+using System.IO;
+using System;
 
 namespace MapEditor
 {
     [DisallowMultipleComponent]
     public sealed class Shortcut : MonoBehaviour
     {
+        public string screenShotPath;
+        
         public string fileSaveSignal;
         
         void Start()
@@ -31,14 +35,12 @@ namespace MapEditor
                     
                     if(Global.inst.edt != null)
                     {
-                        Debug.Log("Edt file saved!");
                         Global.inst.edt.Save(Global.inst.edtName);
                         saved = true;
                     }
                     
                     if(Global.inst.map != null)
                     {
-                        Debug.Log("Map file saved!");
                         Global.inst.map.Save(Global.inst.mapName);
                         saved = true;
                     }
@@ -47,6 +49,35 @@ namespace MapEditor
                     {
                         SignalManager.EmitSignal(new Signal(fileSaveSignal));
                     }
+                }
+            };
+            
+            // Print Screen : Capture screenshoot.
+            RadiacInputController.KeyboardBypass += (Event e) =>
+            {
+                if(Input.GetKeyDown(KeyCode.P) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                {
+                    Directory.CreateDirectory(screenShotPath);
+                    ScreenCapture.CaptureScreenshot(screenShotPath + DateTime.Now.ToString("yyyy-mm-dd-hh-mm-ss-ffff") + ".png");
+                }
+            };
+            
+            // Turn on/off the map displaying.
+            // The map displaying will be turned on when enabling map editing without shortkey.
+            RadiacInputController.KeyboardBypass += (Event e) =>
+            {
+                if(Input.GetKeyDown(KeyCode.M))
+                {
+                    Global.inst.showTiles = !Global.inst.showTiles;
+                }
+            };
+            
+            // Show mouse position.
+            RadiacInputController.KeyboardBypass += (Event e) =>
+            {
+                if(Input.GetKey(KeyCode.Semicolon))
+                {
+                    Global.inst.showMousePosition = !Global.inst.showMousePosition;
                 }
             };
             

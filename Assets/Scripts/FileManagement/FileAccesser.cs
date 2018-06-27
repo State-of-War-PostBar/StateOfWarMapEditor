@@ -28,7 +28,7 @@ namespace MapEditor
             
             if(recentFilePath == null || recentFilePath != text.text)
             {
-                if(LoadNewFile())
+                if(LoadNewFile(text.text))
                 {
                     recentFilePath = text.text;
                     SignalManager.EmitSignal(new Signal(emitFileLoad));
@@ -41,7 +41,7 @@ namespace MapEditor
         }
         
         /// <returns>Whether the file is valid.</returns>
-        protected virtual bool LoadNewFile()
+        protected virtual bool LoadNewFile(string path)
         {
             // do nothing recently.
             
