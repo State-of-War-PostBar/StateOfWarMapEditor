@@ -9,15 +9,6 @@ namespace MapEditor
     {
         public string signalSelect;
         
-        public string emitSelectBuilding;
-        public string emitSelectUnit;
-        
-        struct SelectionInfo
-        {
-            public int id;
-            public bool isUnit;
-        }
-        
         void Start()
         {
             AddCallback(new Signal(signalSelect), () =>
@@ -33,23 +24,21 @@ namespace MapEditor
                 
                 if(sel.selected)
                 {
-                    var b = new SelectionInfo() { id = sel.id, isUnit = sel.isUnit };
-                    
-                    if(b.isUnit)
+                    if(sel.unit != null)
                     {
-                        su = TrySelectUnit(edt, pos, b.id + 1, edt.units.count - 1);
+                        su = TrySelectUnit(edt, pos, sel.id + 1, edt.units.count - 1);
                         if(su == -1)
-                            su = TrySelectUnit(edt, pos, 0, b.id - 1);
+                            su = TrySelectUnit(edt, pos, 0, sel.id - 1);
                         if(su == -1)
                             sb = TrySelectBuilding(edt, pos, 0, edt.buildings.count - 1);
                     }
                     else
                     {
-                        sb = TrySelectBuilding(edt, pos, b.id + 1, edt.buildings.count - 1);
+                        sb = TrySelectBuilding(edt, pos, sel.id + 1, edt.buildings.count - 1);
                         if(sb == -1)
                             su = TrySelectUnit(edt, pos, 0, edt.units.count - 1);
                         if(sb == -1 && su == -1)
-                            sb = TrySelectBuilding(edt, pos, 0, b.id - 1);
+                            sb = TrySelectBuilding(edt, pos, 0, sel.id - 1);
                     }
                 }
                 else
@@ -61,33 +50,17 @@ namespace MapEditor
                 
                 if(sb != -1)
                 {
-                    // +Debug.LogFormat("Select building {0} {1} {2}", edt.buildings[sb].type, edt.buildings[sb].x, edt.buildings[sb].y);
-                    sel.id = sb;
-                    sel.isBuilding = true;
-                    sel.selected = true;
-                    SignalManager.EmitSignal(emitSelectBuilding);
+                    sel.SetBuilding(sb);
                 }
                 else if(su != -1)
                 {
-                    // Debug.LogFormat("Select unit {0} {1} {2}", edt.units[su].type, edt.units[su].x, edt.units[su].y);
-                    sel.id = su;
-                    sel.isUnit = true;
-                    sel.selected = true;
-                    SignalManager.EmitSignal(emitSelectUnit);
+                    sel.SetUnit(su);
                 }
                 else
                 {
-                    // Debug.LogFormat("Nothing selected.");
-                    sel.id = -1;
-                    sel.isUnit = true;
-                    sel.selected = false;
-                }    
+                    sel.Reset();
+                }
             });
-        }
-        
-        void Update()
-        {
-            
         }
         
         int TrySelectUnit(Edt edt, Vector2Int pos, int from, int to)

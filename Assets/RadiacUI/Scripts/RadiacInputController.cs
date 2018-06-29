@@ -40,7 +40,7 @@ namespace RadiacUI
         {
             var e = Event.current;
             if(!e.isKey) return;
-            if(e.type != EventType.keyDown) return;
+            if(e.type != EventType.keyDown && e.type != EventType.keyUp) return;
             if(e.keyCode == KeyCode.None) return;
             
             ctrl = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
@@ -53,6 +53,8 @@ namespace RadiacUI
             }
             else
             {
+                if(e.type != EventType.keyDown) return;
+                
                 if(e.functionKey || char.IsControl((char)e.keyCode))
                 {
                     focusing.ReceiveOperator(e.keyCode);

@@ -20,9 +20,7 @@ namespace MapEditor
             Global.inst.edtName = path;
             Global.inst.textAgent.Update(textRequest, Path.GetFileName(path));
             
-            Global.inst.selection.id = -1;
-            Global.inst.selection.isUnit = true;
-            Global.inst.selection.selected = false;
+            Global.inst.selection.Reset();
             
             return true;
         }

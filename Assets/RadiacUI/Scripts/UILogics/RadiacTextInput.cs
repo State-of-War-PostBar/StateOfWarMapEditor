@@ -69,6 +69,17 @@ namespace RadiacUI
         {
             switch(op)
             {
+                case KeyCode.Tab:
+                {
+                    if(RadiacInputController.shift)
+                    {
+                        textComponent.text = "";
+                        caretPos = 0;
+                        break;
+                    }
+                    break;
+                }
+                
                 case KeyCode.Backspace:
                 {
                     // TODO:

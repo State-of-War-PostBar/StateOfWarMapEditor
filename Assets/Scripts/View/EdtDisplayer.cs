@@ -154,11 +154,31 @@ namespace MapEditor
             }
             
             // Building decorations...
-            foreach(var b in edt.buildings)
+            if(Global.inst.showDecoration)
             {
-                for(int x=0; x<Global.inst.buildingSize[b.type].x; x++) for(int y=0; y<Global.inst.buildingSize[b.type].y; y++)
+                foreach(var b in edt.buildings)
                 {
-                    var rd = pool[cur];
+                    for(int x=0; x<Global.inst.buildingSize[b.type].x; x++) for(int y=0; y<Global.inst.buildingSize[b.type].y; y++)
+                    {
+                        var rd = pool[cur++];
+                        switch(b.owner)
+                        {
+                            case Owner.Player: { rd.sprite = playerBack; break; }
+                            case Owner.Enemy: {  rd.sprite = enemyBack; break; }
+                            case Owner.Neutral:
+                            default: {  rd.sprite = neutralBack; break; }
+                        }
+                        rd.gameObject.transform.position = Vector2.Scale(new Vector2(b.x + x, -b.y - y), gridSize);
+                        rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y + y);
+                        rd.gameObject.SetActive(true);
+                    }
+                }
+                
+                // Unit decorations...
+                foreach(var b in edt.units)
+                {
+                    var rd = pool[cur++];
+                    rd.gameObject.SetActive(true);
                     switch(b.owner)
                     {
                         case Owner.Player: { rd.sprite = playerBack; break; }
@@ -166,31 +186,12 @@ namespace MapEditor
                         case Owner.Neutral:
                         default: {  rd.sprite = neutralBack; break; }
                     }
-                    rd.gameObject.transform.position = Vector2.Scale(new Vector2(b.x + x, -b.y - y), gridSize);
-                    rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y + y);
-                    rd.gameObject.SetActive(true);
-                    cur++;
+                    rd.gameObject.transform.position = new Vector2(b.x, -b.y) - unitOffset;
+                    if(b.type == UnitType.Disk)
+                        rd.sortingOrder = diskOrder;
+                    else
+                        rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y);
                 }
-            }
-            
-            // Unit decorations...
-            foreach(var b in edt.units)
-            {
-                var rd = pool[cur++];
-                rd.gameObject.SetActive(true);
-                switch(b.owner)
-                {
-                    case Owner.Player: { rd.sprite = playerBack; break; }
-                    case Owner.Enemy: {  rd.sprite = enemyBack; break; }
-                    case Owner.Neutral:
-                    default: {  rd.sprite = neutralBack; break; }
-                }
-                rd.gameObject.transform.position = new Vector2(b.x, -b.y) - unitOffset;
-                if(b.type == UnitType.Disk)
-                    rd.sortingOrder = diskOrder;
-                else
-                    rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y);
-                cur++;
             }
             
             while(cur < pool.Count)

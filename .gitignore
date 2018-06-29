@@ -47,3 +47,6 @@ sysinfo.txt
 #Builds
 test1_Data/
 Screenshot/
+
+# test resources files
+test/

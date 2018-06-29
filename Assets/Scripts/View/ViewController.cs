@@ -54,6 +54,9 @@ namespace MapEditor
         
         void Update()
         {
+            cam.orthographicSize = Screen.height / 2;
+            
+            
             if(moving)
             {
                 cam.transform.Translate(moveMultiply * VirtualCursor.deltaPosition);

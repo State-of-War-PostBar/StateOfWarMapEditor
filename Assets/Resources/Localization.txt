@@ -20,7 +20,7 @@ MapNotFound=路径不正确
 SrfReadHint=Srf文件...
 SrfNotFound=路径不正确
 
-# ===== 单位编辑 =====
+# ===== 属性编辑 =====
 
 
 CoordX=横坐标(X)
@@ -33,13 +33,18 @@ Level=等级
 Type=类型
 Health=血量
 
-
-# ===== 全局设置 =====
+True=有
+False=无
 
 Player=玩家
 Enemy=敌方
+Neutral=中立
 
 DiskToggle=飞碟可重生
+
+# ===== 单位名称 =====
+
+None=无
 
 TurretDefence=小炮塔
 TurretAntiair=防空炮塔
@@ -56,6 +61,50 @@ Meteor=陨石
 Carrier=运兵船
 Tripler=连环轰炸
 Fighter=战斗机
+
+LAntiair=轻防空
+MAntiair=中防空
+HAntiair=重防空
+LArti=小炮
+MArti=中炮
+HArti=重炮
+LArmor=轻装甲
+MArmor=中装甲
+HArmor=重装甲
+LSpec=轻特派
+MSpec=中特派
+HSpec=重特派
+LFlame=轻喷火
+MFlame=中喷火
+HFmale=重喷火
+
+Gold1=一级金矿
+Gold2=二级金矿
+Gold3=三级金矿
+Research1=一级研究
+Research2=二级研究
+Research3=三级研究
+Power1=一级电
+Power2=二级电
+Power3=三级电
+
+Disk=飞碟
+Avenger=地空复仇
+Cougar=美洲狮
+Achilles=阿基里斯
+Gattling=格林
+Codiak=科迪亚克
+Rogon=罗根
+
+Headquater=总部
+LightFactory=轻工厂
+MediumFactory=中工厂
+HeavyFactory=重工厂
+Radar=雷达
+Mine=金矿
+ResearchStation=研究站
+Fan=风扇
+BotFactory=机器人工厂
 
 TimeLimit=时限
 TimeToggle=时限开关

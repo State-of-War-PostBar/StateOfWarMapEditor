@@ -32,6 +32,5 @@ namespace MapEditor
                
             return true;
         }
-        
     }
 }

@@ -8,8 +8,46 @@ namespace MapEditor
     [Serializable]
     public class Selection
     {
-        public bool isUnit { get; set; }
-        public bool isBuilding { get { return !isUnit; } set { isUnit = !value; } }
+        bool isUnit { get; set; }
+        
+        public Building building
+        {
+            get
+            {
+                if(!selected || isUnit) return null;
+                return Global.inst.edt.buildings[id];
+            }
+        }
+        
+        public Unit unit
+        {
+            get
+            {
+                if(!selected || !isUnit) return null;
+                return Global.inst.edt.units[id];
+            }
+        }
+        
+        public void SetBuilding(int i)
+        {
+            isUnit = false;
+            id = i;
+            selected =true;
+        }
+        
+        public void SetUnit(int i)
+        {
+            isUnit = true;
+            id = i;
+            selected = true;
+        }
+        
+        public void Reset()
+        {
+            isUnit = true;
+            id = -1;
+            selected = false;
+        }
         
         // The index of the Unit/Building that is selected.
         // Used with the edt file.
@@ -19,9 +57,7 @@ namespace MapEditor
         
         public Selection()
         {
-            isUnit = true;
-            id = -1;
-            selected = false;
+            Reset();
         }
         
         public static implicit operator bool(Selection v) { return v.selected; }
@@ -56,7 +92,11 @@ namespace MapEditor
         
         public bool showTiles;
         public bool showGridPointer;
+        public bool showDecoration;
         public bool showMousePosition;
+        public bool syncPosition;
+        
+        public object clipBoard;
         
         public readonly Selection selection = new Selection();
         

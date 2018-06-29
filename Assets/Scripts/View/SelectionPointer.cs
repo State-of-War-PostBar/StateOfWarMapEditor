@@ -24,17 +24,15 @@ namespace MapEditor
             if(sel.selected)
             {
                 Vector2 pos;
-                if(sel.isBuilding)
+                if(sel.building != null)
                 {
-                    var s = Global.inst.edt.buildings[sel.id];
-                    var lpos = new Vector2(s.x, s.y);
-                    var rpos = lpos + Global.inst.buildingSize[s.type];
+                    var lpos = new Vector2(sel.building.x, sel.building.y);
+                    var rpos = lpos + Global.inst.buildingSize[sel.building.type];
                     pos = (lpos + rpos) * 0.5f * Global.gridSize;
                 }
-                else
+                else // if(sel.unit != null)
                 {
-                    var s = Global.inst.edt.units[sel.id];
-                    pos = new Vector2(s.x, s.y);
+                    pos = new Vector2(sel.unit.x, sel.unit.y);
                 }
                 
                 pos.y = -pos.y;
