@@ -52,7 +52,7 @@ namespace MapEditor
         public RadiacUIComponent timeFail;
         public RadiacUIComponent timeReinforce;
         
-        EdtInfo curInfo { get { return Global.inst.edt.headerInfo; } }
+        EdtInfo curInfo => Global.inst.edt.headerInfo;
         
         /// <summary>
         /// This function should be executed *after* all UI-interactive signals are prepared.

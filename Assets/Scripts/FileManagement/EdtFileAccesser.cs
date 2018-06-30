@@ -8,9 +8,9 @@ namespace MapEditor
 {
     public sealed class EdtFileAccesser : FileAccesser
     {
-        protected override string textRequest { get { return "EdtFileName"; } }
-        protected override string notFound { get { return "$EdtNotFound$"; } }
-        protected override string readHint { get { return "$EdtReadHint$"; } }
+        protected override string textRequest => "EdtFileName";
+        protected override string notFound => "$EdtNotFound$";
+        protected override string readHint => "$EdtReadHint$";
         
         protected override bool LoadNewFile(string path)
         {

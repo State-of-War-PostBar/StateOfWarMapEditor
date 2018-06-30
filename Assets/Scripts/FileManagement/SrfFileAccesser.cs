@@ -9,9 +9,9 @@ namespace MapEditor
     public sealed class SrfFileAccesser : FileAccesser
     {
         
-        protected override string textRequest { get { return "SrfFileName"; } }
-        protected override string notFound { get { return "$SrfNotFound$"; } }
-        protected override string readHint { get { return "$SrfReadHint$"; } }
+        protected override string textRequest => "SrfFileName";
+        protected override string notFound => "$SrfNotFound$";
+        protected override string readHint => "$SrfReadHint$";
         
         protected override bool LoadNewFile(string path)
         {

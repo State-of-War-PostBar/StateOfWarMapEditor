@@ -43,6 +43,7 @@ sysinfo.txt
 # Project file.
 *.unity
 !main.unity
+*.rsp
 
 #Builds
 test1_Data/

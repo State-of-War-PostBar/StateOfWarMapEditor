@@ -7,7 +7,7 @@ namespace MapEditor
     [RequireComponent(typeof(MeshRenderer))]
     public class SelectionPointer : MonoBehaviour
     {
-        MeshRenderer rd { get { return this.GetComponent<MeshRenderer>(); } }
+        MeshRenderer rd => this.GetComponent<MeshRenderer>();
         
         Color baseColor;
         

@@ -8,9 +8,9 @@ namespace MapEditor
 {
     public sealed class MapFileAccesser : FileAccesser
     {
-        protected override string textRequest { get { return "MapFileName"; } }
-        protected override string notFound { get { return "$MapNotFound$"; } }
-        protected override string readHint { get { return "$MapReadHint$"; } }
+        protected override string textRequest => "MapFileName";
+        protected override string notFound => "$MapNotFound$";
+        protected override string readHint => "$MapReadHint$";
         
         protected override bool LoadNewFile(string path)
         {

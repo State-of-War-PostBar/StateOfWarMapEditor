@@ -18,7 +18,7 @@ namespace MapEditor
         
         public Vector2 backPosition;
         
-        Camera cam { get { return this.GetComponent<Camera>(); } }
+        Camera cam => this.GetComponent<Camera>();
         
         [SerializeField] bool moving = false;
         
@@ -55,7 +55,6 @@ namespace MapEditor
         void Update()
         {
             cam.orthographicSize = Screen.height / 2;
-            
             
             if(moving)
             {

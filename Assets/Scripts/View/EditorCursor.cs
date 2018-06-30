@@ -8,7 +8,7 @@ namespace MapEditor
     [RequireComponent(typeof(RawImage))]
     public sealed class EditorCursor : RadiacCursor
     {
-        public static new EditorCursor inst { get { return (EditorCursor)RadiacCursor.inst; } }
+        public static new EditorCursor inst => (EditorCursor)RadiacCursor.inst;
         
         public Color standardColor;
         public Texture2D standardCursor;
@@ -18,7 +18,7 @@ namespace MapEditor
         
         public bool moving;
         
-        public RawImage rd { get { return this.GetComponent<RawImage>(); } }
+        public RawImage rd => this.GetComponent<RawImage>();
         
         protected override void Start()
         {

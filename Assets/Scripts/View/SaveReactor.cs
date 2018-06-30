@@ -17,10 +17,7 @@ namespace MapEditor
         
         [SerializeField] Color baseColor;
         
-        Graphic rd { get { return this.GetComponent<Graphic>(); } }
-        
-        [SerializeField] Text edtNameText;
-        [SerializeField] Text mapNameText;
+        Graphic rd => this.GetComponent<Graphic>();
         
         void Start()
         {

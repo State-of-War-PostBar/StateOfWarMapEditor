@@ -34,7 +34,7 @@ namespace MapEditor
         }
         
         Func<string, string> local = LocalizationSupport.GetLocalizedString;
-        BattleUnit curSelection { get { return Global.inst.edt?.units[Global.inst.selection.id]; } }
+        BattleUnit curSelection => Global.inst.edt?.units[Global.inst.selection.id];
         
         int t = 0;
         void Update()
@@ -137,7 +137,7 @@ namespace MapEditor
             try
             {
                 val = (UnitType)uint.Parse(source.text);
-                if(!Enum.IsDefined(typeof(UnitType), val))
+                if(!val.IsBattleUnit())
                     val = back;
             }
             catch(Exception) { }

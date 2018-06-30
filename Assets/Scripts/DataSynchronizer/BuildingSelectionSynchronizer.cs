@@ -73,7 +73,7 @@ namespace MapEditor
         }
         
         Func<string, string> local = LocalizationSupport.GetLocalizedString;
-        Building curSelection { get { return Global.inst.edt?.buildings[Global.inst.selection.id]; } }
+        Building curSelection => Global.inst.edt?.buildings[Global.inst.selection.id];
         
         int t = 0;
         void Update()
@@ -200,13 +200,13 @@ namespace MapEditor
             AddCallback(new Signal(upd2.cancelSignal), () => curSelection.upgrade2 = Grab(upd2, curSelection.upgrade2));
             AddCallback(new Signal(upd1.cancelSignal), () => curSelection.upgrade1 = Grab(upd1, curSelection.upgrade1));
             AddCallback(new Signal(upd0.cancelSignal), () => curSelection.upgrade0 = Grab(upd0, curSelection.upgrade0));
-            AddCallback(new Signal(prod4.cancelSignal), () => curSelection.production4 = Grab(prod4, curSelection.production4));
-            AddCallback(new Signal(prod3.cancelSignal), () => curSelection.production3 = Grab(prod3, curSelection.production3));
-            AddCallback(new Signal(prod2.cancelSignal), () => curSelection.production2 = Grab(prod2, curSelection.production2));
-            AddCallback(new Signal(prod1.cancelSignal), () => curSelection.production1 = Grab(prod1, curSelection.production1));
-            AddCallback(new Signal(prod0.cancelSignal), () => curSelection.production0 = Grab(prod0, curSelection.production0));
+            AddCallback(new Signal(prod4.cancelSignal), () => curSelection.production4 = GrabProdType(prod4, curSelection.production4));
+            AddCallback(new Signal(prod3.cancelSignal), () => curSelection.production3 = GrabProdType(prod3, curSelection.production3));
+            AddCallback(new Signal(prod2.cancelSignal), () => curSelection.production2 = GrabProdType(prod2, curSelection.production2));
+            AddCallback(new Signal(prod1.cancelSignal), () => curSelection.production1 = GrabProdType(prod1, curSelection.production1));
+            AddCallback(new Signal(prod0.cancelSignal), () => curSelection.production0 = GrabProdType(prod0, curSelection.production0));
             AddCallback(new Signal(level.cancelSignal), () => curSelection.level = Grab(level, curSelection.level));
-            AddCallback(new Signal(type.cancelSignal), () => curSelection.type = Grab(type, curSelection.type));
+            AddCallback(new Signal(type.cancelSignal), () => curSelection.type = GrabType(type, curSelection.type));
         }
         
         Owner Grab(RadiacTextInput source, Owner back)
@@ -230,13 +230,46 @@ namespace MapEditor
             return val;
         }
         
-        UnitType Grab(RadiacTextInput source, UnitType back)
+        
+        UnitType GrabProdType(RadiacTextInput source, UnitType back)
         {
             var val = back;
             try
             {
                 val = (UnitType)uint.Parse(source.text);
-                if(!Enum.IsDefined(typeof(UnitType), val))
+                var type = curSelection.type;
+                if(type == UnitType.Headquater)
+                {
+                    if(!val.IsProduction())
+                        val = back;
+                }
+                if(type == UnitType.Radar)
+                {
+                    if(!val.IsAirforce())
+                        val = back;
+                }
+                else if(type.IsProductionBuilding())
+                {
+                    if(!val.IsProduction())
+                        val = back;
+                }
+                else if(type.IsResourcesBuilding())
+                {
+                    if(!val.IsResources())
+                        val = back;
+                }
+            }
+            catch(Exception) { }
+            return val;
+        }
+        
+        UnitType GrabType(RadiacTextInput source, UnitType back)
+        {
+            var val = back;
+            try
+            {
+                val = (UnitType)uint.Parse(source.text);
+                if(!val.IsBuilding())
                     val = back;
             }
             catch(Exception) { }

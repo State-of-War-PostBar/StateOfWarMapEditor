@@ -8,9 +8,9 @@ namespace MapEditor
     {
         public Text text = null;
         
-        protected virtual string textRequest { get { return "EdtFileName"; } }
-        protected virtual string notFound { get { return "$EdtNotFound$"; } }
-        protected virtual string readHint { get { return "$EdtReadHint$"; } }
+        protected virtual string textRequest => "EdtFileName";
+        protected virtual string notFound => "$EdtNotFound$";
+        protected virtual string readHint => "$EdtReadHint$";
         
         public string recentFilePath;
         public string emitFileLoad;
@@ -41,12 +41,7 @@ namespace MapEditor
         }
         
         /// <returns>Whether the file is valid.</returns>
-        protected virtual bool LoadNewFile(string path)
-        {
-            // do nothing recently.
-            
-            return true;
-        }
+        protected virtual bool LoadNewFile(string path) => true; // do nothing recently...
     }
     
 }

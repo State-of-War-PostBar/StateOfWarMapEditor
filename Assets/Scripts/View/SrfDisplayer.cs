@@ -6,7 +6,7 @@ namespace MapEditor
     [RequireComponent(typeof(SpriteRenderer))]
     public sealed class SrfDisplayer : MonoBehaviour
     {
-        SpriteRenderer rd { get { return this.GetComponent<SpriteRenderer>(); } }
+        SpriteRenderer rd => this.GetComponent<SpriteRenderer>();
         
         void Update()
         {

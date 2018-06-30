@@ -6,8 +6,7 @@ namespace MapEditor
     [RequireComponent(typeof(MeshRenderer))]
     public sealed class GridPointer : MonoBehaviour
     {
-        [SerializeField] RadiacPanel panel;
-        MeshRenderer rd { get { return this.GetComponent<MeshRenderer>(); } }
+        MeshRenderer rd => this.GetComponent<MeshRenderer>();
         
         Color baseColor;
         

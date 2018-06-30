@@ -6,7 +6,7 @@ namespace MapEditor
     [RequireComponent(typeof(Text))]
     public class MousePositionDisplayer : MonoBehaviour
     {
-        Text text { get { return this.GetComponent<Text>(); } }
+        Text text => this.GetComponent<Text>();
         void Update()
         {
             if(Global.inst.showMousePosition)

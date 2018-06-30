@@ -158,7 +158,6 @@ namespace MapEditor
             => new Vector2Int(
                 Mathf.FloorToInt((cursorPointing / gridSize).x),
                 -Mathf.CeilToInt((cursorPointing / gridSize).y));
-            
     }
     
     
