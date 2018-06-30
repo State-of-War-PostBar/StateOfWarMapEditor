@@ -49,7 +49,7 @@ namespace MapEditor
             // [Shift + B] switch the grid pointer.
             RadiacInputController.KeyboardBypass += (Event e) =>
             {
-                if(e.shift && e.keyCode == KeyCode.B && e.type == EventType.keyDown)
+                if(e.shift && e.keyCode == KeyCode.B && e.type == EventType.KeyDown)
                 {
                     Global.inst.showGridPointer = !Global.inst.showGridPointer;
                 }
