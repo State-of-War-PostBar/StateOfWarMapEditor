@@ -135,52 +135,69 @@ namespace MapEditor
                 }
             });
             
-            AddCallback(new Signal(pMoney.cancelSignal), WrapTestEdt(WrapTestEdt(() => CheckAndModify(pMoney, ref curInfo.pMoney))));
-            AddCallback(new Signal(pResearch.cancelSignal), WrapTestEdt(() => CheckAndModify(pResearch, ref curInfo.pResearch)));
-            AddCallback(new Signal(pDiskPower.cancelSignal), WrapTestEdt(() => CheckAndModify(pDiskPower, ref curInfo.pDiskAttack)));
-            AddCallback(new Signal(pBomber.cancelSignal), WrapTestEdt(() => CheckAndModify(pBomber, ref curInfo.pBomber)));
-            AddCallback(new Signal(pMeteor.cancelSignal), WrapTestEdt(() => CheckAndModify(pMeteor, ref curInfo.pMeteor)));
-            AddCallback(new Signal(pCarrier.cancelSignal), WrapTestEdt(() => CheckAndModify(pCarrier, ref curInfo.pCarrier)));
-            AddCallback(new Signal(pTripler.cancelSignal), WrapTestEdt(() => CheckAndModify(pTripler, ref curInfo.pTripler)));
-            AddCallback(new Signal(pFighter.cancelSignal), WrapTestEdt(() => CheckAndModify(pFighter, ref curInfo.pFighter)));
+            AddCallback(new Signal(pMoney.cancelSignal),
+                WrapTestEdt(() => curInfo.pMoney = CheckAndModify(pMoney, curInfo.pMoney)));
+            AddCallback(new Signal(pResearch.cancelSignal),
+                WrapTestEdt(() => curInfo.pResearch = CheckAndModify(pResearch, curInfo.pResearch)));
+            AddCallback(new Signal(pDiskPower.cancelSignal),
+                WrapTestEdt(() => curInfo.pDiskAttack = CheckAndModify(pDiskPower, curInfo.pDiskAttack)));
+            AddCallback(new Signal(pBomber.cancelSignal),
+                WrapTestEdt(() => curInfo.pBomber = CheckAndModify(pBomber, curInfo.pBomber)));
+            AddCallback(new Signal(pMeteor.cancelSignal),
+                WrapTestEdt(() => curInfo.pMeteor = CheckAndModify(pMeteor, curInfo.pMeteor)));
+            AddCallback(new Signal(pCarrier.cancelSignal),
+                WrapTestEdt(() => curInfo.pCarrier = CheckAndModify(pCarrier, curInfo.pCarrier)));
+            AddCallback(new Signal(pTripler.cancelSignal),
+                WrapTestEdt(() => curInfo.pTripler = CheckAndModify(pTripler, curInfo.pTripler)));
+            AddCallback(new Signal(pFighter.cancelSignal),
+                WrapTestEdt(() => curInfo.pFighter = CheckAndModify(pFighter, curInfo.pFighter)));
             
-            AddCallback(new Signal(nMoney.cancelSignal), WrapTestEdt(() => CheckAndModify(nMoney, ref curInfo.nMoney)));
-            AddCallback(new Signal(nResearch.cancelSignal), WrapTestEdt(() => CheckAndModify(nResearch, ref curInfo.nResearch)));
-            AddCallback(new Signal(nDiskPower.cancelSignal), WrapTestEdt(() => CheckAndModify(nDiskPower, ref curInfo.nDiskAttack)));
-            AddCallback(new Signal(nBomber.cancelSignal), WrapTestEdt(() => CheckAndModify(nBomber, ref curInfo.nBomber)));
-            AddCallback(new Signal(nMeteor.cancelSignal), WrapTestEdt(() => CheckAndModify(nMeteor, ref curInfo.nMeteor)));
-            AddCallback(new Signal(nCarrier.cancelSignal), WrapTestEdt(() => CheckAndModify(nCarrier, ref curInfo.nCarrier)));
-            AddCallback(new Signal(nTripler.cancelSignal), WrapTestEdt(() => CheckAndModify(nTripler, ref curInfo.nTripler)));
-            AddCallback(new Signal(nFighter.cancelSignal), WrapTestEdt(() => CheckAndModify(nFighter, ref curInfo.nFighter)));
+            AddCallback(new Signal(nMoney.cancelSignal),
+                WrapTestEdt(() => curInfo.nMoney = CheckAndModify(nMoney, curInfo.nMoney)));
+            AddCallback(new Signal(nResearch.cancelSignal),
+                WrapTestEdt(() => curInfo.nResearch = CheckAndModify(nResearch, curInfo.nResearch)));
+            AddCallback(new Signal(nDiskPower.cancelSignal),
+                WrapTestEdt(() => curInfo.nDiskAttack = CheckAndModify(nDiskPower, curInfo.nDiskAttack)));
+            AddCallback(new Signal(nBomber.cancelSignal),
+                WrapTestEdt(() => curInfo.nBomber = CheckAndModify(nBomber, curInfo.nBomber)));
+            AddCallback(new Signal(nMeteor.cancelSignal),
+                WrapTestEdt(() => curInfo.nMeteor = CheckAndModify(nMeteor, curInfo.nMeteor)));
+            AddCallback(new Signal(nCarrier.cancelSignal),
+                WrapTestEdt(() => curInfo.nCarrier = CheckAndModify(nCarrier, curInfo.nCarrier)));
+            AddCallback(new Signal(nTripler.cancelSignal),
+                WrapTestEdt(() => curInfo.nTripler = CheckAndModify(nTripler, curInfo.nTripler)));
+            AddCallback(new Signal(nFighter.cancelSignal),
+                WrapTestEdt(() => curInfo.nFighter = CheckAndModify(nFighter, curInfo.nFighter)));
             
-            AddCallback(new Signal(timeLimit.cancelSignal), WrapTestEdt(() => CheckAndModify(timeLimit, ref curInfo.timeLimit)));
+            AddCallback(new Signal(timeLimit.cancelSignal),
+                WrapTestEdt(() => curInfo.timeLimit = CheckAndModify(timeLimit, curInfo.timeLimit)));
             
             AddCallback(new Signal(pDisk.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pDisk, ref curInfo.pDisk, DiskRebuildType.Enabled, DiskRebuildType.Disabled)));
+                WrapTestEdt(() => curInfo.pDisk = CheckAndModify(pDisk, DiskRebuildType.Enabled, DiskRebuildType.Disabled)));
             AddCallback(new Signal(nDisk.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nDisk, ref curInfo.nDisk, DiskRebuildType.Enabled, DiskRebuildType.Disabled)));
+                WrapTestEdt(() => curInfo.nDisk = CheckAndModify(nDisk, DiskRebuildType.Enabled, DiskRebuildType.Disabled)));
             
             AddCallback(new Signal(pTurretDefence.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pTurretDefence, ref curInfo.pTurretDefence, true, false)));
+                WrapTestEdt(() => curInfo.pTurretDefence = CheckAndModify(pTurretDefence, true, false)));
             AddCallback(new Signal(pTurretAntiair.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pTurretAntiair, ref curInfo.pTurretAntiair, true, false)));
+                WrapTestEdt(() => curInfo.pTurretAntiair = CheckAndModify(pTurretAntiair, true, false)));
             AddCallback(new Signal(pTurretIon.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pTurretIon, ref curInfo.pTurretIon, true, false)));
+                WrapTestEdt(() => curInfo.pTurretIon = CheckAndModify(pTurretIon, true, false)));
             AddCallback(new Signal(pTurretLed.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pTurretLed, ref curInfo.pTurretLed, true, false)));
+                WrapTestEdt(() => curInfo.pTurretLed = CheckAndModify(pTurretLed, true, false)));
             AddCallback(new Signal(pTurretCluster.switchSignal),
-                WrapTestEdt(() => CheckAndModify(pTurretCluster, ref curInfo.pTurretCluster, true, false)));
+                WrapTestEdt(() => curInfo.pTurretCluster = CheckAndModify(pTurretCluster, true, false)));
             
             AddCallback(new Signal(nTurretDefence.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nTurretDefence, ref curInfo.nTurretDefence, true, false)));
+                WrapTestEdt(() => curInfo.nTurretDefence = CheckAndModify(nTurretDefence, true, false)));
             AddCallback(new Signal(nTurretAntiair.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nTurretAntiair, ref curInfo.nTurretAntiair, true, false)));
+                WrapTestEdt(() => curInfo.nTurretAntiair = CheckAndModify(nTurretAntiair, true, false)));
             AddCallback(new Signal(nTurretIon.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nTurretIon, ref curInfo.nTurretIon, true, false)));
+                WrapTestEdt(() => curInfo.nTurretIon = CheckAndModify(nTurretIon, true, false)));
             AddCallback(new Signal(nTurretLed.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nTurretLed, ref curInfo.nTurretLed, true, false)));
+                WrapTestEdt(() => curInfo.nTurretLed = CheckAndModify(nTurretLed, true, false)));
             AddCallback(new Signal(nTurretCluster.switchSignal),
-                WrapTestEdt(() => CheckAndModify(nTurretCluster, ref curInfo.nTurretCluster, true, false)));
+                WrapTestEdt(() => curInfo.nTurretCluster = CheckAndModify(nTurretCluster, true, false)));
             
             AddCallback(new Signal(timeVictory.switchSignal), WrapTestEdt(CheckTimeState));
             AddCallback(new Signal(timeFail.switchSignal), WrapTestEdt(CheckTimeState));
@@ -237,33 +254,19 @@ namespace MapEditor
             return true;
         }
         
-        void CheckAndModify<N>(RadiacUIComponent toggle, ref N val, N trueVal, N falseVal)
+        N CheckAndModify<N>(RadiacUIComponent toggle, N trueVal, N falseVal)
+            => toggle.selfActive ? trueVal : falseVal;
+            
+        uint CheckAndModify(RadiacTextInput text, uint val)
         {
-            if(toggle.selfActive)
-            {
-                val = trueVal;
-            }
-            else
-            {
-                val = falseVal;
-            }
-        }
-        
-        void CheckAndModify(RadiacTextInput text, ref uint val)
-        {
-            try
-            {
-                uint v = uint.Parse(text.text);
-                val = v;
-                return;
-            }
-            catch(ArgumentNullException) { }
-            catch(FormatException) { }
-            catch(OverflowException) { }
+            uint v = val;
+            try { v = uint.Parse(text.text); }
+            catch(Exception) { }
             
             // Reset the text to the original value,
             // otherwise this text box will always contains the wrong value...
-            text.text = "" + val;
+            text.text = "" + v;
+            return v;
         }
     }
 }

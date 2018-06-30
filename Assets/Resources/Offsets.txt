@@ -1,6 +1,6 @@
-# Unit offsets.
+# Buildings and Units offsets.
 # Origin is topleft.
-# in v units.
+# in grid units.
 
 None=0,0
 
@@ -49,3 +49,20 @@ Cougar=1,2
 Gattling=1,2
 Achilles=1,2
 Rogon=1,1
+
+
+TurretDefence=0,1
+TurretAntiair=0,1
+TurretIon=0,1
+TurretLed=1,0
+TurretCluster=0,0
+
+Headquater=0,2
+LightFactory=0,1
+MediumFactory=0,2
+HeavyFactory=0,2
+Radar=0,2
+Mine=0,2
+ResearchStation=0,0
+Fan=0,1
+BotFactory=0,0

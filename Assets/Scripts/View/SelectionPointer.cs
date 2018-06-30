@@ -30,9 +30,9 @@ namespace MapEditor
                     var rpos = lpos + Global.inst.buildingSize[sel.building.type];
                     pos = (lpos + rpos) * 0.5f * Global.gridSize;
                 }
-                else // if(sel.unit != null)
+                else // if(sel.battleUnit != null)
                 {
-                    pos = new Vector2(sel.unit.x, sel.unit.y);
+                    pos = new Vector2(sel.battleUnit.x, sel.battleUnit.y);
                 }
                 
                 pos.y = -pos.y;

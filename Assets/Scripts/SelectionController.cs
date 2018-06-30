@@ -24,7 +24,7 @@ namespace MapEditor
                 
                 if(sel.selected)
                 {
-                    if(sel.unit != null)
+                    if(sel.battleUnit != null)
                     {
                         su = TrySelectUnit(edt, pos, sel.id + 1, edt.units.count - 1);
                         if(su == -1)
@@ -90,7 +90,7 @@ namespace MapEditor
                 && b.y <= pos.y && pos.y < b.y + sz.y;
         }
         
-        bool CanBeSelect(Vector2Int position, Unit u)
+        bool CanBeSelect(Vector2Int position, BattleUnit u)
         {
             var pos = (position + new Vector2(0.5f, 0.5f)) * Global.gridSize;
             var top = pos + new Vector2(Global.gridSize, Global.gridSize);

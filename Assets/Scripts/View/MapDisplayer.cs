@@ -1,8 +1,9 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-
 using StateOfWarUtility;
+
+using System.Threading.Tasks;
 
 namespace MapEditor
 {
@@ -52,12 +53,13 @@ namespace MapEditor
             int cur = 0;
             // Optimize:
             // Do not use iterator. The MoveNext() function of it may causes bad performance.
+            
             for(int x=0; x<map.headerInfo.width; x++) for(int y=0; y<map.headerInfo.height; y++)
             {
-                var rd = pool[cur];
+                var rd = pool[cur++];
                 
                 int code = 0;
-                var t = map[x, y];
+                var t = map[(int)x, y];
                 code += t.ground == TileGround.Blocked ? 4 : 0;
                 code += t.air == TileAir.Blocked ? 2 : 0;
                 code += t.turret == TileTurret.Blocked ? 1 : 0;
@@ -73,8 +75,6 @@ namespace MapEditor
                     rd.color = Color.white;
                 else
                     rd.color = new Color(1f, 1f, 1f, 0f);
-                
-                cur++;
             }
         }
         

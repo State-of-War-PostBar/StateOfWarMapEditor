@@ -34,7 +34,7 @@ namespace MapEditor
         }
         
         Func<string, string> local = LocalizationSupport.GetLocalizedString;
-        Unit curSelection { get { return Global.inst.edt?.units[Global.inst.selection.id]; } }
+        BattleUnit curSelection { get { return Global.inst.edt?.units[Global.inst.selection.id]; } }
         
         int t = 0;
         void Update()
@@ -56,7 +56,7 @@ namespace MapEditor
         void UpdateCurrentSelection()
         {
             var sel = Global.inst.selection;
-            if(sel.selected && sel.unit != null)
+            if(sel.selected && sel.battleUnit != null)
             {
                 UpdateView();
                 UpdateInput();
@@ -112,56 +112,44 @@ namespace MapEditor
         
         void InitModifier()
         {
-            AddCallback(new Signal(x.cancelSignal), () => { GrabValueFromText(x, ref curSelection.x); });
-            AddCallback(new Signal(y.cancelSignal), () => { GrabValueFromText(y, ref curSelection.y); });
-            AddCallback(new Signal(owner.cancelSignal), () => { GrabValueFromText(owner, ref curSelection.owner); });
-            AddCallback(new Signal(type.cancelSignal), () => { GrabValueFromText(type, ref curSelection.type); });
+            AddCallback(new Signal(x.cancelSignal), () => curSelection.x = Grab(x, curSelection.x));
+            AddCallback(new Signal(y.cancelSignal), () => curSelection.y = Grab(y, curSelection.y));
+            AddCallback(new Signal(owner.cancelSignal), () => curSelection.owner = Grab(owner, curSelection.owner));
+            AddCallback(new Signal(type.cancelSignal), () => curSelection.type = Grab(type, curSelection.type));
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref Owner target)
+        Owner Grab(RadiacTextInput source, Owner back)
         {
+            var val = back;
             try
             {
-                uint val = uint.Parse(source.text);
+                val = (Owner)uint.Parse(source.text);
                 if(!Enum.IsDefined(typeof(Owner), val))
-                    return;
-                target = (Owner)val;
-                UpdateView();
+                    return back;
             }
             catch(Exception) { }
+            return val;
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref UnitType target)
+        UnitType Grab(RadiacTextInput source, UnitType back)
         {
+            var val = back;
             try
             {
-                uint val = uint.Parse(source.text);
+                val = (UnitType)uint.Parse(source.text);
                 if(!Enum.IsDefined(typeof(UnitType), val))
-                    return;
-                target = (UnitType)val;
-                UpdateView();
+                    val = back;
             }
             catch(Exception) { }
+            return val;
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref uint target)
+        uint Grab(RadiacTextInput source, uint back)
         {
-            try
-            {
-                uint val = uint.Parse(source.text);
-                target = val;
-                UpdateView();
-            }
+            var val = back;
+            try { val = uint.Parse(source.text); }
             catch(Exception) { }
-        }
-        
-        Action WrapTestSelection(Action t)
-        {
-            return () =>
-            {
-                if(curSelection == null) return;
-                t();
-            };
+            return val;
         }
     }
 }

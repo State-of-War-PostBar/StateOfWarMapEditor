@@ -138,9 +138,9 @@ namespace MapEditor
                     {
                         Global.inst.clipBoard = Global.inst.selection.building.Clone();
                     }
-                    else if(Global.inst.selection.unit != null)
+                    else if(Global.inst.selection.battleUnit != null)
                     {
-                        Global.inst.clipBoard = Global.inst.selection.unit.Clone();
+                        Global.inst.clipBoard = Global.inst.selection.battleUnit.Clone();
                     }
                 }
             };
@@ -187,9 +187,9 @@ namespace MapEditor
                         Global.inst.clipBoard = Global.inst.selection.building.Clone();
                         Global.inst.edt.buildings.Remove(Global.inst.selection.id);
                     }
-                    else if(Global.inst.selection.unit != null)
+                    else if(Global.inst.selection.battleUnit != null)
                     {
-                        Global.inst.clipBoard = Global.inst.selection.unit.Clone();
+                        Global.inst.clipBoard = Global.inst.selection.battleUnit.Clone();
                         Global.inst.edt.units.Remove(Global.inst.selection.id);
                     }
                     Global.inst.selection.Reset();
@@ -209,7 +209,7 @@ namespace MapEditor
                     {
                         Global.inst.edt.buildings.Remove(Global.inst.selection.id);
                     }
-                    else if(Global.inst.selection.unit != null)
+                    else if(Global.inst.selection.battleUnit != null)
                     {
                         Global.inst.edt.units.Remove(Global.inst.selection.id);
                     }

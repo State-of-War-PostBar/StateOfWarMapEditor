@@ -15,11 +15,6 @@ namespace MapEditor
         
         [SerializeField] Sprite[] sprites;
         
-        
-        public readonly Dictionary<BuildingType, Sprite> buildingPlayerSprites = new Dictionary<BuildingType, Sprite>();
-        public readonly Dictionary<BuildingType, Sprite> buildingEnemySprites = new Dictionary<BuildingType, Sprite>();
-        public readonly Dictionary<BuildingType, Sprite> buildingNeutralSprites = new Dictionary<BuildingType, Sprite>();
-        
         public readonly Dictionary<UnitType, Sprite> unitPlayerSprites = new Dictionary<UnitType, Sprite>();
         public readonly Dictionary<UnitType, Sprite> unitEnemySprites = new Dictionary<UnitType, Sprite>();
         public readonly Dictionary<UnitType, Sprite> unitNeutralSprite = new Dictionary<UnitType, Sprite>();
@@ -52,42 +47,26 @@ namespace MapEditor
         {
             // Hard coded file name and configuration file syntax.
             Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
+            
             foreach(var i in this.sprites)
                 sprites.Add(i.name, i);
             
-            foreach(BuildingType bt in Enum.GetValues(typeof(BuildingType)))
-                buildingPlayerSprites.Add(bt, sprites["P-" + bt.ToString()]);
-            
-            foreach(BuildingType bt in Enum.GetValues(typeof(BuildingType)))
-                buildingEnemySprites.Add(bt, sprites["E-" + bt.ToString()]);
-            
-            foreach(BuildingType bt in Enum.GetValues(typeof(BuildingType)))
+            foreach(UnitType bt in Enum.GetValues(typeof(UnitType)))
             {
+                if(!bt.IsBuilding()) continue;
+                unitPlayerSprites.Add(bt, sprites["P-" + bt.ToString()]);
+                unitEnemySprites.Add(bt, sprites["E-" + bt.ToString()]);
                 string n = "N-" + bt.ToString();
-                if(sprites.ContainsKey(n))
-                    buildingNeutralSprites.Add(bt, sprites[n]);
-                else
-                    buildingNeutralSprites.Add(bt, buildingEnemySprites[bt]);
+                unitNeutralSprite.Add(bt, sprites.ContainsKey(n) ? sprites[n] : unitPlayerSprites[bt]);
             }
             
             foreach(UnitType bt in Enum.GetValues(typeof(UnitType)))
-                if(!bt.IsProductionOnly())
-                    unitPlayerSprites.Add(bt, sprites["P-" + bt.ToString()]);
-                
-            foreach(UnitType bt in Enum.GetValues(typeof(UnitType)))
-                if(!bt.IsProductionOnly())
-                    unitEnemySprites.Add(bt, sprites["E-" + bt.ToString()]);
-            
-            foreach(UnitType bt in Enum.GetValues(typeof(UnitType)))
             {
-                if(!bt.IsProductionOnly())
-                {
-                    string n = "N-" + bt.ToString();
-                    if(sprites.ContainsKey(n))
-                        unitNeutralSprite.Add(bt, sprites[n]);
-                    else
-                        unitNeutralSprite.Add(bt, unitEnemySprites[bt]);
-                }
+                if(!bt.IsBattleUnit()) continue;
+                unitPlayerSprites.Add(bt, sprites["P-" + bt.ToString()]);
+                unitEnemySprites.Add(bt, sprites["E-" + bt.ToString()]);
+                string n = "N-" + bt.ToString();
+                unitNeutralSprite.Add(bt, sprites.ContainsKey(n) ? sprites[n] : unitEnemySprites[bt]);
             }
         }
         
@@ -121,15 +100,15 @@ namespace MapEditor
             // Buildings...
             foreach(var b in edt.buildings)
             {
-                var curOffset = new Vector2(Global.inst.buildingOffsets[b.type].x, -Global.inst.buildingOffsets[b.type].y);
+                var curOffset = new Vector2(Global.inst.offsets[b.type].x, -Global.inst.offsets[b.type].y);
                 var rd = pool[cur++];
                 rd.gameObject.SetActive(true);
                 switch(b.owner)
                 {
-                    case Owner.Player: { rd.sprite = buildingPlayerSprites[b.type]; break; }
-                    case Owner.Enemy: { rd.sprite = buildingEnemySprites[b.type]; break; }
+                    case Owner.Player: { rd.sprite = unitPlayerSprites[b.type]; break; }
+                    case Owner.Enemy: { rd.sprite = unitEnemySprites[b.type]; break; }
                     case Owner.Neutral:
-                    default: { rd.sprite = buildingNeutralSprites[b.type]; break; }
+                    default: { rd.sprite = unitNeutralSprite[b.type]; break; }
                 }
                 rd.gameObject.transform.position = Vector2.Scale(new Vector2(b.x, -b.y) - curOffset, gridSize);
                 rd.sortingOrder = unitsOrder + Mathf.FloorToInt(b.y);
@@ -139,7 +118,7 @@ namespace MapEditor
             var unitOffset = new Vector2(Global.gridSize, -Global.gridSize) * 0.5f;
             foreach(var b in edt.units)
             {
-                var curOffset = new Vector2(Global.inst.unitOffsets[b.type].x, -Global.inst.unitOffsets[b.type].y) * Global.gridSize + unitOffset;
+                var curOffset = new Vector2(Global.inst.offsets[b.type].x, -Global.inst.offsets[b.type].y) * Global.gridSize + unitOffset;
                 var rd = pool[cur++];
                 rd.gameObject.SetActive(true);
                 switch(b.owner)

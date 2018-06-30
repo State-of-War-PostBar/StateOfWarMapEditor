@@ -190,93 +190,65 @@ namespace MapEditor
         
         void InitModifier()
         {
-            AddCallback(new Signal(health.cancelSignal), () => { GrabValueFromText(health, ref curSelection.health); });
-            AddCallback(new Signal(x.cancelSignal), () => { GrabValueFromText(x, ref curSelection.x); });
-            AddCallback(new Signal(y.cancelSignal), () => { GrabValueFromText(y, ref curSelection.y); });
-            AddCallback(new Signal(owner.cancelSignal), () => { GrabValueFromText(owner, ref curSelection.owner); });
-            AddCallback(new Signal(sat.cancelSignal), () => { GrabValueFromText(sat, ref curSelection.satellite); });
-            AddCallback(new Signal(upd4.cancelSignal), () => { GrabValueFromText(upd4, ref curSelection.upgrade4); });
-            AddCallback(new Signal(upd3.cancelSignal), () => { GrabValueFromText(upd3, ref curSelection.upgrade3); });
-            AddCallback(new Signal(upd2.cancelSignal), () => { GrabValueFromText(upd2, ref curSelection.upgrade2); });
-            AddCallback(new Signal(upd1.cancelSignal), () => { GrabValueFromText(upd1, ref curSelection.upgrade1); });
-            AddCallback(new Signal(upd0.cancelSignal), () => { GrabValueFromText(upd0, ref curSelection.upgrade0); });
-            AddCallback(new Signal(prod4.cancelSignal), () => { GrabValueFromText(prod4, ref curSelection.production4); });
-            AddCallback(new Signal(prod3.cancelSignal), () => { GrabValueFromText(prod3, ref curSelection.production3); });
-            AddCallback(new Signal(prod2.cancelSignal), () => { GrabValueFromText(prod2, ref curSelection.production2); });
-            AddCallback(new Signal(prod1.cancelSignal), () => { GrabValueFromText(prod1, ref curSelection.production1); });
-            AddCallback(new Signal(prod0.cancelSignal), () => { GrabValueFromText(prod0, ref curSelection.production0); });
-            AddCallback(new Signal(level.cancelSignal), () => { GrabValueFromText(level, ref curSelection.level); });
-            AddCallback(new Signal(type.cancelSignal), () => { GrabValueFromText(type, ref curSelection.type); });
+            AddCallback(new Signal(health.cancelSignal), () => curSelection.health = Grab(health, curSelection.health));
+            AddCallback(new Signal(x.cancelSignal), () => curSelection.x = Grab(x, curSelection.x));
+            AddCallback(new Signal(y.cancelSignal), () => curSelection.y = Grab(y, curSelection.y));
+            AddCallback(new Signal(owner.cancelSignal), () => curSelection.owner = Grab(owner, curSelection.owner));
+            AddCallback(new Signal(sat.cancelSignal), () => curSelection.satellite = Grab(sat, curSelection.satellite));
+            AddCallback(new Signal(upd4.cancelSignal), () => curSelection.upgrade4 = Grab(upd4, curSelection.upgrade4));
+            AddCallback(new Signal(upd3.cancelSignal), () => curSelection.upgrade3 = Grab(upd3, curSelection.upgrade3));
+            AddCallback(new Signal(upd2.cancelSignal), () => curSelection.upgrade2 = Grab(upd2, curSelection.upgrade2));
+            AddCallback(new Signal(upd1.cancelSignal), () => curSelection.upgrade1 = Grab(upd1, curSelection.upgrade1));
+            AddCallback(new Signal(upd0.cancelSignal), () => curSelection.upgrade0 = Grab(upd0, curSelection.upgrade0));
+            AddCallback(new Signal(prod4.cancelSignal), () => curSelection.production4 = Grab(prod4, curSelection.production4));
+            AddCallback(new Signal(prod3.cancelSignal), () => curSelection.production3 = Grab(prod3, curSelection.production3));
+            AddCallback(new Signal(prod2.cancelSignal), () => curSelection.production2 = Grab(prod2, curSelection.production2));
+            AddCallback(new Signal(prod1.cancelSignal), () => curSelection.production1 = Grab(prod1, curSelection.production1));
+            AddCallback(new Signal(prod0.cancelSignal), () => curSelection.production0 = Grab(prod0, curSelection.production0));
+            AddCallback(new Signal(level.cancelSignal), () => curSelection.level = Grab(level, curSelection.level));
+            AddCallback(new Signal(type.cancelSignal), () => curSelection.type = Grab(type, curSelection.type));
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref Owner target)
+        Owner Grab(RadiacTextInput source, Owner back)
         {
+            var val = back;
             try
             {
-                uint val = uint.Parse(source.text);
+                val = (Owner)uint.Parse(source.text);
                 if(!Enum.IsDefined(typeof(Owner), val))
-                    return;
-                target = (Owner)val;
-                UpdateView();
+                    return back;
             }
             catch(Exception) { }
+            return val;
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref bool target)
+        bool Grab(RadiacTextInput source, bool back)
         {
-            try
-            {
-                uint val = uint.Parse(source.text);
-                target = val != 0;
-                UpdateView();
-            }
+            var val = back;
+            try { val = uint.Parse(source.text) != 0; }
             catch(Exception) { }
+            return val;
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref BuildingType target)
+        UnitType Grab(RadiacTextInput source, UnitType back)
         {
+            var val = back;
             try
             {
-                uint val = uint.Parse(source.text);
-                if(!Enum.IsDefined(typeof(BuildingType), val))
-                    return;
-                target = (BuildingType)val;
-                UpdateView();
-            }
-            catch(Exception) { }
-        }
-        
-        void GrabValueFromText(RadiacTextInput source, ref UnitType target)
-        {
-            try
-            {
-                uint val = uint.Parse(source.text);
+                val = (UnitType)uint.Parse(source.text);
                 if(!Enum.IsDefined(typeof(UnitType), val))
-                    return;
-                target = (UnitType)val;
-                UpdateView();
+                    val = back;
             }
             catch(Exception) { }
+            return val;
         }
         
-        void GrabValueFromText(RadiacTextInput source, ref uint target)
+        uint Grab(RadiacTextInput source, uint back)
         {
-            try
-            {
-                uint val = uint.Parse(source.text);
-                target = val;
-                UpdateView();
-            }
+            var val = back;
+            try { val = uint.Parse(source.text); }
             catch(Exception) { }
-        }
-        
-        Action WrapTestSelection(Action t)
-        {
-            return () =>
-            {
-                if(curSelection == null) return;
-                t();
-            };
+            return val;
         }
     }
 }

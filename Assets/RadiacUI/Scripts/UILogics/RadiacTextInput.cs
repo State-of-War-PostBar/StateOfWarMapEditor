@@ -172,7 +172,7 @@ namespace RadiacUI
             // Needs a reason that put this sentence here, but not in RadiacInputReceiver...
             if(!active) return;
             
-            if(textComponent.text.Length != lengthLimit)
+            if(lengthLimit <= 0 || textComponent.text.Length != lengthLimit)
             {
                 if(RadiacInputController.shift)
                     c = char.ToUpper(c);

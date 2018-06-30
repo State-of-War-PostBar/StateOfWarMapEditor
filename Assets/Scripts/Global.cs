@@ -8,43 +8,43 @@ namespace MapEditor
     [Serializable]
     public class Selection
     {
-        bool isUnit { get; set; }
+        bool isBattleUnit { get; set; }
         
         public Building building
         {
             get
             {
-                if(!selected || isUnit) return null;
+                if(!selected || isBattleUnit) return null;
                 return Global.inst.edt.buildings[id];
             }
         }
         
-        public Unit unit
+        public BattleUnit battleUnit
         {
             get
             {
-                if(!selected || !isUnit) return null;
+                if(!selected || !isBattleUnit) return null;
                 return Global.inst.edt.units[id];
             }
         }
         
         public void SetBuilding(int i)
         {
-            isUnit = false;
+            isBattleUnit = false;
             id = i;
             selected =true;
         }
         
         public void SetUnit(int i)
         {
-            isUnit = true;
+            isBattleUnit = true;
             id = i;
             selected = true;
         }
         
         public void Reset()
         {
-            isUnit = true;
+            isBattleUnit = true;
             id = -1;
             selected = false;
         }
@@ -100,9 +100,8 @@ namespace MapEditor
         
         public readonly Selection selection = new Selection();
         
-        public readonly Dictionary<BuildingType, Vector2Int> buildingOffsets = new Dictionary<BuildingType, Vector2Int>();
-        public readonly Dictionary<UnitType, Vector2Int> unitOffsets = new Dictionary<UnitType, Vector2Int>();
-        public readonly Dictionary<BuildingType, Vector2Int> buildingSize = new Dictionary<BuildingType, Vector2Int>();
+        public readonly Dictionary<UnitType, Vector2Int> offsets = new Dictionary<UnitType, Vector2Int>();
+        public readonly Dictionary<UnitType, Vector2Int> buildingSize = new Dictionary<UnitType, Vector2Int>();
         
         void Awake()
         {
@@ -123,22 +122,8 @@ namespace MapEditor
         
         void PrepareResources()
         {
-            SetVec2FromConfig(buildingOffsets, "BuildingOffset");
-            SetVec2FromConfig(unitOffsets, "UnitOffset");
+            SetVec2FromConfig(offsets, "Offsets");
             SetVec2FromConfig(buildingSize, "BuildingSize");
-        }
-        
-        void SetVec2FromConfig(Dictionary<BuildingType, Vector2Int> target, string configFile)
-        {
-            var text = Resources.Load(configFile) as TextAsset;
-            var values = INIParser.Parse(text.text);
-            foreach(var i in values)
-            {
-                string[] vstr = i.Value.Split(',');
-                int x = int.Parse(vstr[0]);
-                int y = int.Parse(vstr[1]);
-                target[i.Key.ToEnum<BuildingType>()] = new Vector2Int(x, y);
-            }
         }
         
         void SetVec2FromConfig(Dictionary<UnitType, Vector2Int> target, string configFile)
@@ -161,27 +146,19 @@ namespace MapEditor
         
         
         public Vector2 cursorPointing
-        {
-            get
-            {
-                return RadiacUI.VirtualCursor.position
-                    + (Vector2)Camera.main.transform.position
-                    - new Vector2(Screen.width, Screen.height) * 0.5f;
-            }
-        }
+            => RadiacUI.VirtualCursor.position
+            + (Vector2)Camera.main.transform.position
+            - new Vector2(Screen.width, Screen.height) * 0.5f;
         
+        // TODO:
+        // Hard code grid size.
+        // This should be move to other place...
+        // Alongside the same value that appears everywhere.
         public Vector2Int cursorPointingGrid
-        {
-            get
-            {
-                // TODO:
-                // Hard code grid size.
-                // This should be move to other place...
-                // Alongside the same value that appears everywhere.
-                var cur = cursorPointing / gridSize;
-                return new Vector2Int(Mathf.FloorToInt(cur.x), -Mathf.CeilToInt(cur.y));
-            }
-        }
+            => new Vector2Int(
+                Mathf.FloorToInt((cursorPointing / gridSize).x),
+                -Mathf.CeilToInt((cursorPointing / gridSize).y));
+            
     }
     
     
