@@ -10,12 +10,9 @@ namespace MapEditor
         {
             if(Global.inst.map == null) return;
             
-            for(int i=1; i<10; i++) if(Input.GetKey(KeyCode.Alpha0 + i))
+            for(int i=0; i<=7; i++) if(Input.GetKey(KeyCode.Alpha0 + i))
             {
-                if(i <= 7)
-                {
                     SetPointingTile(i);
-                }
             }
             
             // A special treat.

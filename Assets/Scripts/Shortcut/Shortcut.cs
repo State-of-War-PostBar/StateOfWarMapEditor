@@ -13,7 +13,7 @@ namespace MapEditor
     // [Shift + S | Ctrl + S] save.
     // [Shift + P] screenshot.
     // [Shift + M] switch the map display.
-    // [Shift + ;] switch mous position display.
+    // [Shift + ;] switch mouse position display.
     // [Shift + T] switch building and units taken place display.
     
     // [Shift + D] synchonrize selected object's position with mouse.
