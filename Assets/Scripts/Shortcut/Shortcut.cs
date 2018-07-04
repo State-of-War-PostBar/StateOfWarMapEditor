@@ -112,17 +112,17 @@ namespace MapEditor
             };
             
             // [Shift + D] synchonrize selected object's position with mouse.
-            RadiacInputController.KeyboardBypass += (Event e) =>
-            {
-                if(Input.GetKeyDown(KeyCode.D) && e.shift)
-                {
-                    Global.inst.syncPosition = true;
-                }
-                else if(Input.GetKeyUp(KeyCode.D) || !e.shift)
-                {
-                    Global.inst.syncPosition = false;
-                }
-            };
+            // RadiacInputController.KeyboardBypass += (Event e) =>
+            // {
+            //     if(Input.GetKeyDown(KeyCode.D) && e.shift)
+            //     {
+            //         Global.inst.syncPosition = true;
+            //     }
+            //     else if(Input.GetKeyUp(KeyCode.D) || !e.shift)
+            //     {
+            //         Global.inst.syncPosition = false;
+            //     }
+            // };
             
             // [Ctrl + C | Shift + C] copy.
             RadiacInputController.KeyboardBypass += (Event e) =>
@@ -158,8 +158,8 @@ namespace MapEditor
                         var x = Global.inst.edt.buildings.Add();
                         x.Assign(Global.inst.clipBoard);
                         Global.inst.selection.SetBuilding(Global.inst.edt.buildings.count - 1);
-                        x.x = (uint)Global.inst.cursorPointingGrid.x;
-                        x.y = (uint)Global.inst.cursorPointingGrid.y;
+                        x.x = Global.inst.cursorPointingGrid.x;
+                        x.y = Global.inst.cursorPointingGrid.y;
                     }
                     else if(Global.inst.clipBoard is Unit)
                     {
@@ -167,8 +167,8 @@ namespace MapEditor
                         var x = Global.inst.edt.units.Add();
                         x.Assign(Global.inst.clipBoard);
                         Global.inst.selection.SetUnit(Global.inst.edt.units.count - 1);
-                        x.x = (uint)Global.inst.cursorPointingGrid.x;
-                        x.y = (uint)Global.inst.cursorPointingGrid.y;
+                        x.x = Global.inst.cursorPointingGrid.x;
+                        x.y = Global.inst.cursorPointingGrid.y;
                     }
                 }
             };
@@ -224,8 +224,8 @@ namespace MapEditor
                 if(Input.GetKey(KeyCode.W) && e.shift)
                 {
                     var x = Global.inst.edt.buildings.Add();
-                    x.x = (uint)Global.inst.cursorPointingGrid.x;
-                    x.y = (uint)Global.inst.cursorPointingGrid.y;
+                    x.x = Global.inst.cursorPointingGrid.x;
+                    x.y = Global.inst.cursorPointingGrid.y;
                     Global.inst.selection.SetBuilding(Global.inst.edt.buildings.count - 1);
                 }
             };
@@ -238,8 +238,8 @@ namespace MapEditor
                 {
                     var x = Global.inst.edt.units.Add();
                     var pos = (Global.inst.cursorPointingGrid + new Vector2(0.5f, 0.5f)) * Global.gridSize;
-                    x.x = (uint)pos.x;
-                    x.y = (uint)pos.y;
+                    x.x = (int)pos.x;
+                    x.y = (int)pos.y;
                     Global.inst.selection.SetUnit(Global.inst.edt.units.count - 1);
                 }
             };

@@ -60,7 +60,6 @@ namespace MapEditor
             {
                 UpdateView();
                 UpdateInput();
-                UpdateChangePosition();
                 SignalManager.EmitSignal(emitUnitPanelOn);
             }
             else
@@ -91,15 +90,6 @@ namespace MapEditor
             owner.text = "" + (uint)b.owner;
             type.text = "" + (uint)b.type;
         }
-        
-        void UpdateChangePosition()
-        {
-            if(Global.inst.syncPosition)
-            {
-                curSelection.x = (uint)Global.inst.cursorPointingGrid.x * Global.gridSize + Global.gridSize / 2;
-                curSelection.y = (uint)Global.inst.cursorPointingGrid.y * Global.gridSize + Global.gridSize / 2;
-            }
-        } 
         
         void ClearView()
         {
@@ -144,10 +134,10 @@ namespace MapEditor
             return val;
         }
         
-        uint Grab(RadiacTextInput source, uint back)
+        int Grab(RadiacTextInput source, int back)
         {
             var val = back;
-            try { val = uint.Parse(source.text); }
+            try { val = int.Parse(source.text); }
             catch(Exception) { }
             return val;
         }

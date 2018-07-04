@@ -94,7 +94,6 @@ namespace MapEditor
         public bool showGridPointer;
         public bool showDecoration;
         public bool showMousePosition;
-        public bool syncPosition;
         
         public object clipBoard;
         
@@ -146,9 +145,11 @@ namespace MapEditor
         
         
         public Vector2 cursorPointing
-            => RadiacUI.VirtualCursor.position
-            + (Vector2)Camera.main.transform.position
-            - new Vector2(Screen.width, Screen.height) * 0.5f;
+            => Vector2.Scale(
+                RadiacUI.VirtualCursor.position
+                + (Vector2)Camera.main.transform.position
+                - new Vector2(Screen.width, Screen.height) * 0.5f,
+                new Vector2(1f, -1f));
         
         // TODO:
         // Hard code grid size.
@@ -157,7 +158,7 @@ namespace MapEditor
         public Vector2Int cursorPointingGrid
             => new Vector2Int(
                 Mathf.FloorToInt((cursorPointing / gridSize).x),
-                -Mathf.CeilToInt((cursorPointing / gridSize).y));
+                Mathf.FloorToInt((cursorPointing / gridSize).y));
     }
     
     

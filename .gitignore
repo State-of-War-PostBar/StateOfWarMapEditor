@@ -44,9 +44,11 @@ sysinfo.txt
 *.unity
 !main.unity
 *.rsp
+MonoBleedingEdge/
+!mcs.rsp
 
 #Builds
-test1_Data/
+StateOfWarMapEditor_Data/
 Screenshot/
 
 # test resources files

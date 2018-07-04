@@ -8,6 +8,7 @@ namespace MapEditor
     public sealed class SelectionController : SignalReceiver
     {
         public string signalSelect;
+        public string emitAfterSelect;
         
         void Start()
         {
@@ -31,6 +32,8 @@ namespace MapEditor
                             su = TrySelectUnit(edt, pos, 0, sel.id - 1);
                         if(su == -1)
                             sb = TrySelectBuilding(edt, pos, 0, edt.buildings.count - 1);
+                        if(su == -1 && sb == -1)
+                            su = TrySelectUnit(edt, pos, sel.id, sel.id);
                     }
                     else
                     {
@@ -39,6 +42,8 @@ namespace MapEditor
                             su = TrySelectUnit(edt, pos, 0, edt.units.count - 1);
                         if(sb == -1 && su == -1)
                             sb = TrySelectBuilding(edt, pos, 0, sel.id - 1);
+                        if(su == -1 && sb == -1)
+                            sb = TrySelectBuilding(edt, pos, sel.id, sel.id);
                     }
                 }
                 else
@@ -51,10 +56,12 @@ namespace MapEditor
                 if(sb != -1)
                 {
                     sel.SetBuilding(sb);
+                    SignalManager.EmitSignal(emitAfterSelect);
                 }
                 else if(su != -1)
                 {
                     sel.SetUnit(su);
+                    SignalManager.EmitSignal(emitAfterSelect);
                 }
                 else
                 {
