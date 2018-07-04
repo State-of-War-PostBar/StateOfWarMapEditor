@@ -37,7 +37,7 @@ This editor provides is fully functional to change everthing (useful) in State o
     * [Shift + W] create new building at cursor pointing grid. 在光标处新建建筑.
     * [Shift + E] create new unit at cursor pointing grid. 在光标处新建单位.
     
-
+![Sample 1](https://raw.githubusercontent.com/DragoonKiller/StateOfWarMapEditor/master/Documentation/Pictures/scr.png)
 
 ### TODO 未完成功能
 * Modification for .til file. .til文件修改.
