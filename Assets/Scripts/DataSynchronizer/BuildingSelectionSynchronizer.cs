@@ -5,7 +5,7 @@ using System;
 
 namespace MapEditor
 {
-    public class BuildingSelectionSynchronizer : SignalReceiver
+    public sealed class BuildingSelectionSynchronizer : SignalReceiver
     {
         const int updateDelay = 1;
         
