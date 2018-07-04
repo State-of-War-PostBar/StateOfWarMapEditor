@@ -11,7 +11,7 @@ namespace MapEditor
     // [Shift + Esc | Ctrl + Esc] quit. 
     // [Shift + B] switch the grid pointer.
     // [Shift + S | Ctrl + S] save.
-    // [Shift + P] screenshot.
+    // [Shift + P | Ctrl + P] screenshot.
     // [Shift + M] switch the map display.
     // [Shift + ;] switch mouse position display.
     // [Shift + T] switch building and units taken place display.
@@ -82,10 +82,10 @@ namespace MapEditor
                 }
             };
             
-            // [Shift + P] screenshot.
+            // [Shift + P | Ctrl + P] screenshot.
             RadiacInputController.KeyboardBypass += (Event e) =>
             {
-                if(Input.GetKeyDown(KeyCode.P) && e.shift)
+                if(Input.GetKeyDown(KeyCode.P) && (e.shift || e.control))
                 {
                     Directory.CreateDirectory(screenShotPath);
                     ScreenCapture.CaptureScreenshot(screenShotPath + DateTime.Now.ToString("yyyy-mm-dd-hh-mm-ss-ffff") + ".png");

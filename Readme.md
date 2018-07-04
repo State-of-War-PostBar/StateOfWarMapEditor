@@ -25,9 +25,8 @@ This editor provides is fully functional to change everthing (useful) in State o
 * Save by pressing Ctrl + S.  
 按 Ctrl + S 保存.
 * other fucntions and their shortcut 其它功能快捷键
-    * [Shift + Esc | Ctrl + Esc] exit. 退出. 
+    * [Shift + Esc | Ctrl + Esc | Alt + F4] exit. 退出. 
     * [Shift + B] switch cursor pointing grid hint. 切换光标位置指示.
-    * [Shift + P] screenshot. 截图.
     * [Shift + M] switch tiles property display. 切换地块属性显示.
     * [Shift + ;] switch cursor coordinates display. 切换光标坐标值显示.
     * [Shift + T] switch taken place display for units. 切换单位的占地指示标志.
