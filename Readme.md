@@ -5,7 +5,8 @@ This editor is fully functional to change everything (useful) in State of War ma
 这个地图编辑器提供了修改蓝色警戒地图的完整功能, 包括.edt文件和.map文件的全部(有意义的)部分. 在后期开发中可能会加入对.til文件的支持.
 
 ### Usage 用法
-
+* Use right mouse button to move your viewport just like in game.  
+和游戏里类似, 右键移动视野.
 * Move cursor to any text box, then edit with keyboard without clicking.  
 将鼠标移动到文本框中, 直接使用键盘输入内容.
 * Type your file path in the text box in the top-left corner. Relative path (e.g. "./StateOfWar/Data/Levels/M00.edt") and absolute path (e.g. "D:/StateOfWar/Data/Levels/M00.edt") are available.  
