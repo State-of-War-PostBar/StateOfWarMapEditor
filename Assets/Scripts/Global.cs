@@ -5,64 +5,6 @@ using StateOfWarUtility;
 
 namespace MapEditor
 {
-    [Serializable]
-    public class Selection
-    {
-        bool isBattleUnit { get; set; }
-        
-        public Building building
-        {
-            get
-            {
-                if(!selected || isBattleUnit) return null;
-                return Global.inst.edt.buildings[id];
-            }
-        }
-        
-        public BattleUnit battleUnit
-        {
-            get
-            {
-                if(!selected || !isBattleUnit) return null;
-                return Global.inst.edt.units[id];
-            }
-        }
-        
-        public void SetBuilding(int i)
-        {
-            isBattleUnit = false;
-            id = i;
-            selected =true;
-        }
-        
-        public void SetUnit(int i)
-        {
-            isBattleUnit = true;
-            id = i;
-            selected = true;
-        }
-        
-        public void Reset()
-        {
-            isBattleUnit = true;
-            id = -1;
-            selected = false;
-        }
-        
-        // The index of the Unit/Building that is selected.
-        // Used with the edt file.
-        public int id;
-        
-        public bool selected;
-        
-        public Selection()
-        {
-            Reset();
-        }
-        
-        public static implicit operator bool(Selection v) { return v.selected; }
-    }
-    
     /// <summary>
     /// Where global resources are used.
     /// </summary>
@@ -86,7 +28,7 @@ namespace MapEditor
         public Map map;
         public string mapName;
         
-        public MapFileAccesser srfAccesser;
+        public SrfFileAccesser srfAccesser;
         public Texture2D srf;
         public string srfName;
         
@@ -163,5 +105,48 @@ namespace MapEditor
     
     
     
+    /// <summary>
+    /// A bug represented when put this class onto the top of this file.
+    /// Unity 2018.1.6
+    /// </summary>
+    [Serializable]
+    public class Selection
+    {
+        bool isBattleUnit { get; set; }
+        
+        // The index of the Unit/Building that is selected.
+        // Used with the edt file.
+        public int id;
+        
+        public bool selected { get; private set; }
+        
+        public Building building => (!selected || isBattleUnit) ? null : Global.inst.edt.buildings[id];
+        public BattleUnit battleUnit => (!selected || !isBattleUnit) ? null : Global.inst.edt.units[id];
+        
+        public void SetBuilding(int i)
+        {
+            isBattleUnit = false;
+            id = i;
+            selected =true;
+        }
+        
+        public void SetUnit(int i)
+        {
+            isBattleUnit = true;
+            id = i;
+            selected = true;
+        }
+        
+        public void Reset()
+        {
+            isBattleUnit = true;
+            id = -1;
+            selected = false;
+        }
+        
+        public Selection() => Reset();
+        
+        public static implicit operator bool(Selection v) => v.selected;
+    }
     
 }

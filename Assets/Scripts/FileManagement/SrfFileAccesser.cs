@@ -8,7 +8,6 @@ namespace MapEditor
 {
     public sealed class SrfFileAccesser : FileAccesser
     {
-        
         protected override string textRequest => "SrfFileName";
         protected override string notFound => "$SrfNotFound$";
         protected override string readHint => "$SrfReadHint$";

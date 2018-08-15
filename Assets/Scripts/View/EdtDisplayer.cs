@@ -57,7 +57,7 @@ namespace MapEditor
                 unitPlayerSprites.Add(bt, sprites["P-" + bt.ToString()]);
                 unitEnemySprites.Add(bt, sprites["E-" + bt.ToString()]);
                 string n = "N-" + bt.ToString();
-                unitNeutralSprite.Add(bt, sprites.ContainsKey(n) ? sprites[n] : unitPlayerSprites[bt]);
+                unitNeutralSprite.Add(bt, sprites.ContainsKey(n) ? sprites[n] : unitEnemySprites[bt]);
             }
             
             foreach(UnitType bt in Enum.GetValues(typeof(UnitType)))
@@ -102,7 +102,7 @@ namespace MapEditor
             {
                 var curOffset = new Vector2(Global.inst.offsets[b.type].x, -Global.inst.offsets[b.type].y);
                 var rd = pool[cur++];
-                rd.gameObject.SetActive(true);
+                rd.enabled = true;
                 switch(b.owner)
                 {
                     case Owner.Player: { rd.sprite = unitPlayerSprites[b.type]; break; }
@@ -120,7 +120,7 @@ namespace MapEditor
             {
                 var curOffset = new Vector2(Global.inst.offsets[b.type].x, -Global.inst.offsets[b.type].y) * Global.gridSize + unitOffset;
                 var rd = pool[cur++];
-                rd.gameObject.SetActive(true);
+                rd.enabled = true;
                 switch(b.owner)
                 {
                     case Owner.Player: { rd.sprite = unitPlayerSprites[b.type]; break; }
@@ -132,9 +132,9 @@ namespace MapEditor
                 rd.sortingOrder = unitsOrder + Mathf.FloorToInt(b.y);
             }
             
-            // Building decorations...
             if(Global.inst.showDecoration)
             {
+                // Building decorations...
                 foreach(var b in edt.buildings)
                 {
                     for(int x=0; x<Global.inst.buildingSize[b.type].x; x++) for(int y=0; y<Global.inst.buildingSize[b.type].y; y++)
@@ -149,7 +149,7 @@ namespace MapEditor
                         }
                         rd.gameObject.transform.position = Vector2.Scale(new Vector2(b.x + x, -b.y - y), gridSize);
                         rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y + y);
-                        rd.gameObject.SetActive(true);
+                        rd.enabled = true;
                     }
                 }
                 
@@ -157,7 +157,7 @@ namespace MapEditor
                 foreach(var b in edt.units)
                 {
                     var rd = pool[cur++];
-                    rd.gameObject.SetActive(true);
+                    rd.enabled = true;
                     switch(b.owner)
                     {
                         case Owner.Player: { rd.sprite = playerBack; break; }
@@ -173,12 +173,16 @@ namespace MapEditor
                 }
             }
             
+            // Clear.
             while(cur < pool.Count)
             {
-                pool[cur].gameObject.SetActive(false);
-                cur++;
+                pool[cur++].enabled = false;
             }
         }
+        
+        //=============================================================================================================
+        //=============================================================================================================
+        //=============================================================================================================
         
         void Preserve(int cnt)
         {
@@ -189,7 +193,7 @@ namespace MapEditor
                 var rd = x.AddComponent<SpriteRenderer>();
                 rd.sortingLayerName = "Units";
                 pool.Add(rd);
-                x.SetActive(false);
+                rd.enabled = false;
             }
         }
     }

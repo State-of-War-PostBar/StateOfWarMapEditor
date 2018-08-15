@@ -23,6 +23,10 @@ namespace MapEditor
             {
                 i.SetValue(x, i.GetValue(other));
             }
+            foreach(var i in type.GetProperties())
+            {
+                i.SetValue(x, i.GetValue(other));
+            }
         }
     }
 }

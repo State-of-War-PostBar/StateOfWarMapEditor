@@ -8,9 +8,9 @@ namespace MapEditor
     {
         public Text text = null;
         
-        protected virtual string textRequest => "EdtFileName";
-        protected virtual string notFound => "$EdtNotFound$";
-        protected virtual string readHint => "$EdtReadHint$";
+        protected virtual string textRequest => "FileFileName";
+        protected virtual string notFound => "$FileNotFound$";
+        protected virtual string readHint => "$FileReadHint$";
         
         public string recentFilePath;
         public string emitFileLoad;

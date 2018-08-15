@@ -136,10 +136,12 @@ namespace MapEditor
                 {
                     if(Global.inst.selection.building != null)
                     {
+                        Debug.Log("Building to clipboard.");
                         Global.inst.clipBoard = Global.inst.selection.building.Clone();
                     }
                     else if(Global.inst.selection.battleUnit != null)
                     {
+                        Debug.Log("Unit to clipboard.");
                         Global.inst.clipBoard = Global.inst.selection.battleUnit.Clone();
                     }
                 }
@@ -155,6 +157,7 @@ namespace MapEditor
                     if(Global.inst.clipBoard is Building)
                     {
                         // add to the tail; select the tail.
+                        Debug.Log("Paste building.");
                         var x = Global.inst.edt.buildings.Add();
                         x.Assign(Global.inst.clipBoard);
                         Global.inst.selection.SetBuilding(Global.inst.edt.buildings.count - 1);
@@ -164,6 +167,7 @@ namespace MapEditor
                     else if(Global.inst.clipBoard is Unit)
                     {
                         // add to the tail; select the tail.
+                        Debug.Log("Paste unit.");
                         var x = Global.inst.edt.units.Add();
                         x.Assign(Global.inst.clipBoard);
                         Global.inst.selection.SetUnit(Global.inst.edt.units.count - 1);
