@@ -37,6 +37,7 @@ This editor is fully functional to change everything (useful) in State of War ma
     * [Delete | Shift + Tab] remove. 删除选择的单位.
     * [Shift + W] create new building at cursor pointing grid. 在光标处新建建筑.
     * [Shift + E] create new unit at cursor pointing grid. 在光标处新建单位.
+    * [Space] Move to center of map. 回到地图中央.
     
 ![Sample 1](https://raw.githubusercontent.com/DragoonKiller/StateOfWarMapEditor/master/Documentation/Pictures/scr.png)
 
@@ -56,7 +57,7 @@ Issue it.
 
 Fork this repo directly, commit your change and send a pullrequest to this repository. It's advised to open an issue for specifying what this project needed.
 
-直接fork, 然后提交 pullrequest. 虽然不强制要求, 但是仍然建议先提交一个issue, 说明你想要添加哪些功能.
+直接fork, 然后提交 pullrequest. 虽然不强制要求, 但是仍然建议先提交一个issue, 说明你想要添加哪些功能, 或者想要修改什么.
 
 ### License 协议
 

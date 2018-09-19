@@ -26,7 +26,6 @@ namespace MapEditor
         {
             if(map.ContainsKey(s))
                 throw new InvalidOperationException("re-register a string!");
-            
             map.Add(s, "");
         }
         
@@ -40,20 +39,12 @@ namespace MapEditor
             map[s] = t;
         }
         
-        public string Get(string s)
-        {
-            if(!map.ContainsKey(s))
-            {
-                return "NotFound:" + s;
-            }
-            
-            return map[s];
-        }
+        public string Get(string s) => (!map.ContainsKey(s)) ? "NotFound:" + s : map[s];
         
         public string this[string s]
         {
-            get { return Get(s); }
-            set { Update(s, value); }
+            get => Get(s);
+            set => Update(s, value);
         }
     }
 }

@@ -22,6 +22,7 @@ SrfNotFound=路径不正确
 
 # ===== 属性编辑 =====
 
+InitView=初始视野
 
 CoordX=横坐标(X)
 CoordY=纵坐标(Y)

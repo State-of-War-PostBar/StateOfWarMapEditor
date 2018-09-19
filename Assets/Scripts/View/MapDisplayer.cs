@@ -50,31 +50,40 @@ namespace MapEditor
         {
             var map = Global.inst.map;
             Preserve(map.width * map.height);
-            int cur = 0;
-            // Optimize:
-            // Do not use iterator. The MoveNext() function of it may causes bad performance.
             
+            int cur = 0;
+            
+            // Optimized:
+            // Do not use iterator. The MoveNext() function of it may causes bad performance.
             for(int x=0; x<map.headerInfo.width; x++) for(int y=0; y<map.headerInfo.height; y++)
             {
                 var rd = pool[cur++];
                 
                 int code = 0;
-                var t = map[(int)x, y];
+                var t = map[x, y];
                 code += t.ground == TileGround.Blocked ? 4 : 0;
                 code += t.air == TileAir.Blocked ? 2 : 0;
                 code += t.turret == TileTurret.Blocked ? 1 : 0;
                 
-                // Optimize:
+                // Optimized:
                 // The sprite assign has some performance cost...
                 if(rd.sprite != states[code])
                     rd.sprite = states[code];
                 
                 rd.transform.position = new Vector2(rd.sprite.texture.width * t.x, -t.y * rd.sprite.texture.height);
-                rd.gameObject.SetActive(true);
+                
+                rd.enabled = true;
+                
                 if(Global.inst.showTiles)
                     rd.color = Color.white;
                 else
                     rd.color = new Color(1f, 1f, 1f, 0f);
+            }
+            
+            // Clear.
+            while(cur < pool.Count)
+            {
+                pool[cur++].enabled = false;
             }
         }
         
@@ -88,7 +97,7 @@ namespace MapEditor
                 var rd = x.AddComponent<SpriteRenderer>();
                 rd.sortingLayerName = "Tiles";
                 pool.Add(rd);
-                x.SetActive(false);
+                rd.enabled = false;
             }
         }
         
