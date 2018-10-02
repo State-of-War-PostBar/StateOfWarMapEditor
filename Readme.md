@@ -3,6 +3,8 @@
 This editor is fully functional to change everything (useful) in State of War map files, including .edt and .map (and .til in further development).
 
 这个地图编辑器提供了修改蓝色警戒地图的完整功能, 包括.edt文件和.map文件的全部(有意义的)部分. 在后期开发中可能会加入对.til文件的支持.
+    
+![Sample 1](https://raw.githubusercontent.com/DragoonKiller/StateOfWarMapEditor/master/Documentation/Pictures/scr.png)
 
 ### Usage 用法
 * Use right mouse button to move your viewport just like in game.  
@@ -38,8 +40,14 @@ This editor is fully functional to change everything (useful) in State of War ma
     * [Shift + W] create new building at cursor pointing grid. 在光标处新建建筑.
     * [Shift + E] create new unit at cursor pointing grid. 在光标处新建单位.
     * [Space] Move to center of map. 回到地图中央.
-    
-![Sample 1](https://raw.githubusercontent.com/DragoonKiller/StateOfWarMapEditor/master/Documentation/Pictures/scr.png)
+* ![Tiles](https://raw.githubusercontent.com/DragoonKiller/StateOfWarMapEditor/master/Documentation/Pictures/tiles.png)  
+从左到右, 各个格子的功能大致如下:
+
+|按键 Button|`0`|`1`|`2`|`3`|`4`|`5`|`6`|`7`|
+-|-|-|-|-|-|-|-|-
+|坦克可通行 Tanks available|√||√||√||√||
+|飞碟和空军可通行 Air units available|√|√|||√|√|||
+|可以造炮塔 Turrets available|√|√|√|√|||||
 
 ### TODO 未完成功能
 * Modification for .til file. .til文件修改.

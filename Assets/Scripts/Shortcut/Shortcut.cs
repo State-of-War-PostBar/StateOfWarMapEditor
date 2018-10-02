@@ -41,6 +41,7 @@ namespace MapEditor
                 {
                     if(Input.GetKeyDown(KeyCode.Escape))
                     {
+                        Debug.Log("Quit!");
                         Application.Quit();
                     }
                 }
