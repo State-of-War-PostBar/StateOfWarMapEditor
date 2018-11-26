@@ -14,6 +14,9 @@ namespace RadiacUI
         /// The base color property provides a way to modify color outside.
         /// </summary>
         public Color baseColor = Color.white;
+        Color recColor;
+        
+        
         public float fadeSpeed = 1.0f;
         
         Graphic image { get { return this.gameObject.GetComponent<Graphic>(); } }
@@ -26,6 +29,7 @@ namespace RadiacUI
         void Start()
         {
             if(fadeSpeed <= 0f) throw new ArgumentOutOfRangeException();
+            recColor = image.color;
         }
         
         void Update()
@@ -35,7 +39,7 @@ namespace RadiacUI
             
             float step = fadeSpeed * Time.deltaTime;
             selfTransparency = Mathf.Clamp(selfTransparency + (uiBase.active ? 1 : -1) * step, 0f, 1.0f);
-            image.color = baseColor * new Color(image.color.r, image.color.g, image.color.b, transparency);
+            image.color = baseColor * new Color(recColor.r, recColor.g, recColor.b, transparency);
         }
     }
 }

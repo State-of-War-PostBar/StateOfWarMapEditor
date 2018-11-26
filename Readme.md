@@ -13,6 +13,7 @@ This editor is fully functional to change everything (useful) in State of War ma
 将鼠标移动到文本框中, 直接使用键盘输入内容.
 * Type your file path in the text box in the top-left corner. Relative path (e.g. "./StateOfWar/Data/Levels/M00.edt") and absolute path (e.g. "D:/StateOfWar/Data/Levels/M00.edt") are available.  
 在左上角的文本框中输入你的地图文件路径. 可以使用相对路径(例如"./StateOfWar/Data/Levels/M00.edt")或绝对路径(例如"D:/StateOfWar/Data/Levels/M00.edt").
+* JPG and SRF file are allowed to read into background.  背景图片支持 JPG 和 (原版)SRF 文件. 
 * Open the global configuration panel by moving cursor to the upper-right corner, then edit values in the same way. You can click left mouse buttom to switch the checkbox.  
 把鼠标移动到右上角打开全局修改面板, 用同样的方式修改数值. 在选择框中点击鼠标左键切换选择.
 * Left click to select units and buildings. If there are multiple things can be selected at the grid, they will be selected one by one and then repeat.  

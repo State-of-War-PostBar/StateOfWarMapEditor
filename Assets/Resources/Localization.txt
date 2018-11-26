@@ -53,8 +53,8 @@ TurretIon=离子炮塔
 TurretLed=莱德风暴
 TurretCluster=集束炮塔
 
-Money=玩家金钱
-Research=玩家研究指数
+PlayerMoney=玩家金钱
+PlayerResearch=玩家研究指数
 DiskPower=飞碟攻击力
 Airforce=空军
 Bomber=轰炸机
@@ -63,28 +63,42 @@ Carrier=运兵船
 Tripler=连环轰炸
 Fighter=战斗机
 
+Antiair=防空坦克
 LAntiair=轻防空
 MAntiair=中防空
 HAntiair=重防空
+
+Arti=炮兵坦克
 LArti=小炮
 MArti=中炮
 HArti=重炮
+
+Armor=装甲坦克
 LArmor=轻装甲
 MArmor=中装甲
 HArmor=重装甲
+
+Spec=特派坦克
 LSpec=轻特派
 MSpec=中特派
 HSpec=重特派
+
+Flame=喷火坦克
 LFlame=轻喷火
 MFlame=中喷火
 HFmale=重喷火
 
+Gold=金矿
 Gold1=一级金矿
 Gold2=二级金矿
 Gold3=三级金矿
+
+Research=研究
 Research1=一级研究
 Research2=二级研究
 Research3=三级研究
+
+Power=电力
 Power1=一级电
 Power2=二级电
 Power3=三级电
@@ -112,3 +126,23 @@ TimeToggle=时限开关
 TimeVictory=胜利
 TimeFail=失败
 TimeReinforce=援军
+
+# ===== 操作提示 =====
+
+Building=建筑
+Unit=单位
+Shortcut=快捷键
+HelpPanel=帮助面板
+
+Exit=退出.
+SwitchCursorPosition=开关光标位置指示.
+SwitchTileAttribute=开关地块属性显示.
+SwitchCursorCoordinates=开关光标坐标值显示.
+SwitchTilesTaken=开关单位的占地指示.
+CopySelection=复制当前选择.
+PasteSelection=粘贴当前选择.
+CutSelection=剪切当前选择.
+DeleteSelection=删除选择的单位.
+CreateBuilding=在光标处新建建筑.
+CreateUnit=在光标处新建单位.
+BackToCenter=回到地图中央.

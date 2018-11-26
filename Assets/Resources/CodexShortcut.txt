@@ -1,0 +1,15 @@
+$Shortcut$:
+
+[F1] [H] $HelpPanel$
+[Shift + Esc] [Ctrl + Esc] $Exit$
+[Shift + B] $SwitchCursorPosition$
+[Shift + M] $SwitchTileAttribute$
+[Shift + ;] $SwitchCursorCoordinates$
+[Shift + T] $SwitchTilesTaken$
+[Ctrl + C] [Shift + C] $CopySelection$
+[Ctrl + V] [Shift + V] $PasteSelection$
+[Ctrl + X] [Shift + X] $CutSelection$
+[Delete] [Shift + Tab] $DeleteSelection$
+[Shift + W] $CreateBuilding$
+[Shift + E] $CreateUnit$
+[Space] $BackToCenter$

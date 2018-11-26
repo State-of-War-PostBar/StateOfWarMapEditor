@@ -228,12 +228,17 @@ namespace MapEditor
             {
                 val = (UnitType)uint.Parse(source.text);
                 var type = curSelection.type;
-                if(type == UnitType.Headquater)
+                
+                if(val.IsNothing()) // I can always remove a production.
+                {
+                    val = UnitType.None;
+                }
+                else if(type == UnitType.Headquater)
                 {
                     if(!val.IsProduction())
                         val = back;
                 }
-                if(type == UnitType.Radar)
+                else if(type == UnitType.Radar)
                 {
                     if(!val.IsAirforce())
                         val = back;
@@ -249,7 +254,13 @@ namespace MapEditor
                         val = back;
                 }
             }
-            catch(Exception) { }
+            catch(Exception)
+            {
+                if(source.text == "")
+                {
+                    val = UnitType.None;
+                }
+            }
             return val;
         }
         

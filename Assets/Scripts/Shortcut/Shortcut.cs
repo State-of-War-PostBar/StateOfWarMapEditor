@@ -26,6 +26,8 @@ namespace MapEditor
     // [Shift + W] create building.
     // [Shift + E] create unit.
     
+    // [F1 | H] show hints.
+    
     [DisallowMultipleComponent]
     public sealed class Shortcut : MonoBehaviour
     {
@@ -255,6 +257,20 @@ namespace MapEditor
                 {
                     Global.inst.showDecoration = !Global.inst.showDecoration;
                 }
+            };
+            
+            // [F1 | H] switch hint panel.
+            RadiacInputController.KeyboardBypass += (Event e) =>
+            {
+                if(Input.GetKeyDown(KeyCode.F1) || Input.GetKeyDown(KeyCode.H))
+                {
+                    SignalManager.EmitSignal(new Signal("HintOn"));
+                }
+                else if(Input.GetKeyUp(KeyCode.F1) || Input.GetKeyUp(KeyCode.H))
+                {
+                    SignalManager.EmitSignal(new Signal("HintOff"));
+                }
+                
             };
         }
         

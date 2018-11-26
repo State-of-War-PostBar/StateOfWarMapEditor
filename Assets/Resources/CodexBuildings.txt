@@ -1,0 +1,17 @@
+$Building$:
+
+[100] $Headquater$
+[101] $LightFactory$
+[102] $MediumFactory$
+[103] $HeavyFactory$
+[104] $Radar$
+[105] $Mine$
+[106] $ResearchStation$
+[107] $Fan$
+[108] $BotFactory$
+
+[25] $TurretDefence$
+[26] $TurretAntiair$
+[27] $TurretIon$
+[28] $TurretLed$
+[29] $TurretCluster$

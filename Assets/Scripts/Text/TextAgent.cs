@@ -6,6 +6,7 @@ namespace MapEditor
 {
     /// <summary>
     /// An agent of listener.
+    /// Store traslated values so that text boxes can display them.
     /// Used in Global class.
     /// </summary>
     public sealed class TextAgent
