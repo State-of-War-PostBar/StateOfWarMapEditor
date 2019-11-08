@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -20,9 +21,7 @@ namespace RadiacUI
         
         public static void LoadLocalizationFile()
         {
-            var file = Resources.Load("Localization") as TextAsset;
-            
-            if(file == null) throw new InvalidOperationException("Localization config file not found!");
+            var file = File.ReadAllText("Localization.txt");
             
             // Hard code format.
             // Syntax :
@@ -34,7 +33,7 @@ namespace RadiacUI
             // use $n$ for line break.
             // use $h$ for charactor #.
             
-            string[] lines = file.text.Replace("\r", "").Split('\n');
+            string[] lines = file.Replace("\r", "").Split('\n');
             int curLine = 0;
             foreach(var line in lines)
             {
