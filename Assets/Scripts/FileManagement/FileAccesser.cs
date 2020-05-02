@@ -36,6 +36,7 @@ namespace MapEditor
                 else
                 {
                     Global.inst.textAgent.Update(textRequest, LocalizationSupport.GetLocalizedString(notFound));
+                    recentFilePath = "";
                 }
             }
         }

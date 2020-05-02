@@ -48,7 +48,7 @@ This editor is fully functional to change everything (useful) in State of War ma
 -|-|-|-|-|-|-|-|-
 |坦克可通行 Tanks available|√||√||√||√||
 |飞碟和空军可通行 Air units available|√|√|||√|√|||
-|可以造炮塔 Turrets available|√|√|√|√|||||
+|可以造炮塔 Turrets available|√||√||||||
 
 ### TODO 未完成功能
 * Modification for .til file. .til文件修改.
