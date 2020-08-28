@@ -1,4 +1,4 @@
-# Buildings and Units offsets.
+# Buildings and Units sprite offsets.
 # Origin is topleft.
 # in grid units.
 

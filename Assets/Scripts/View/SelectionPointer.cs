@@ -28,6 +28,8 @@ namespace MapEditor
                 {
                     var lpos = new Vector2(sel.building.x, sel.building.y);
                     var rpos = lpos + Global.inst.buildingSize[sel.building.type];
+                    lpos += Global.inst.locOffsets[sel.building.type];
+                    rpos += Global.inst.locOffsets[sel.building.type];
                     pos = (lpos + rpos) * 0.5f * Global.gridSize;
                 }
                 else // if(sel.battleUnit != null)

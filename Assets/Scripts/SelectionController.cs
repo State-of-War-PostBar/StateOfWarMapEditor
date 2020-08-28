@@ -93,6 +93,8 @@ namespace MapEditor
         bool CanBeSelect(Vector2Int pos, Building b)
         {
             var sz = Global.inst.buildingSize[b.type];
+            var offset = Global.inst.locOffsets[b.type];
+            pos -= offset;
             return b.x <= pos.x && pos.x < b.x + sz.x
                 && b.y <= pos.y && pos.y < b.y + sz.y;
         }

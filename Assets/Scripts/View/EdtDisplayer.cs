@@ -101,6 +101,7 @@ namespace MapEditor
             foreach(var b in edt.buildings)
             {
                 var curOffset = new Vector2(Global.inst.offsets[b.type].x, -Global.inst.offsets[b.type].y);
+                curOffset += new Vector2(Global.inst.locOffsets[b.type].x, Global.inst.locOffsets[b.type].y);
                 var rd = pool[cur++];
                 rd.enabled = true;
                 switch(b.owner)
@@ -147,7 +148,9 @@ namespace MapEditor
                             case Owner.Neutral:
                             default: {  rd.sprite = neutralBack; break; }
                         }
-                        rd.gameObject.transform.position = Vector2.Scale(new Vector2(b.x + x, -b.y - y), gridSize);
+                        var curPos = new Vector2(b.x + x, -b.y - y);
+                        curPos += new Vector2(Global.inst.locOffsets[b.type].x, -Global.inst.locOffsets[b.type].y);
+                        rd.gameObject.transform.position = Vector2.Scale(curPos, gridSize);
                         rd.sortingOrder = decoOrder + Mathf.FloorToInt(b.y + y);
                         rd.enabled = true;
                     }

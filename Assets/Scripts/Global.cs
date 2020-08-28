@@ -42,6 +42,7 @@ namespace MapEditor
         public readonly Selection selection = new Selection();
         
         public readonly Dictionary<UnitType, Vector2Int> offsets = new Dictionary<UnitType, Vector2Int>();
+        public readonly Dictionary<UnitType, Vector2Int> locOffsets = new Dictionary<UnitType, Vector2Int>();
         public readonly Dictionary<UnitType, Vector2Int> buildingSize = new Dictionary<UnitType, Vector2Int>();
         
         void Awake()
@@ -64,6 +65,7 @@ namespace MapEditor
         void PrepareResources()
         {
             SetVec2FromConfig(offsets, "Offsets");
+            SetVec2FromConfig(locOffsets, "LocOffsets");
             SetVec2FromConfig(buildingSize, "BuildingSize");
         }
         
